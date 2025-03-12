@@ -18,6 +18,8 @@ This system provides a comprehensive framework for extracting, structuring, and 
    - [Differential Geometry](./2-templates/DifferentialGeometryTemplate.md)
    - [Dynamical Systems](./2-templates/DynamicalSystemsTemplate.md)
    - [Numerical Optimization](./2-templates/NumericalOptimizationTemplate.md)
+   - [Computer Vision](./2-templates/ComputerVisionTemplate.md)
+   - [Optimal Control](./2-templates/OptimalControlTemplate.md)
 
 3. **Working Examples**
    - [Spectral Method Implementation](./3-examples/spectral-method.md)
@@ -25,12 +27,42 @@ This system provides a comprehensive framework for extracting, structuring, and 
    - [Conservation Properties](./3-examples/conservation-properties.md)
    - [Lorenz System](./3-examples/lorenz-system.md)
    - [Boundary Value Problem](./3-examples/boundary-value-problem.md)
+   - [CV-Based Parameter Estimation](./3-examples/cv-parameter-estimation.md)
 
 4. **Guidelines**
    - [Nomenclature System](./4-guidelines/nomenclature-system.md)
    - [Validation Checklist](./4-guidelines/validation-checklist.md)
    - [Collaborative Workflow](./4-guidelines/collaborative-workflow.md)
    - [Mathematics Visualization](./4-guidelines/mathematics-visualization.md)
+   - [Cross-Domain Knowledge Organization](./4-guidelines/cross-domain-organization.md)
+
+## Knowledge Domain Structure
+
+The knowledge extraction system is organized into interconnected domains that support advanced applications in scientific computing, numerical methods, and control systems:
+
+### Numerics
+- **Differential Equations**: ODEs, PDEs, DAEs, stochastic DEs
+- **Discretization Methods**: Finite difference, finite element, spectral methods, collocation
+- **Optimization Algorithms**: Unconstrained, constrained, global, stochastic
+- **Root Finding Algorithms**: Bisection, Newton methods, quasi-Newton methods
+- **Linear Algebra**: Direct solvers, iterative solvers, eigenvalue problems
+- **Computational Acceleration**: GPU computing, parallel computing, vectorization
+- **Fundamental Theory**: Numerical stability, convergence analysis, error estimation
+
+### Computer Vision
+- **Image Processing**: Filtering, edge detection, segmentation, registration
+- **Feature Extraction**: Keypoint detection, descriptors, tracking, optical flow
+- **3D Reconstruction**: Structure from motion, stereo vision, volumetric reconstruction
+- **Deep Learning CV**: CNNs, semantic segmentation, generative models
+- **Physics-Informed Vision**: Physics-constrained tracking, material property estimation
+- **Inverse Problem Imaging**: Tomographic reconstruction, computational imaging
+
+### Applications
+- **Control Systems**: Optimal control, model predictive control, dynamic optimization
+- **Fluid Dynamics**: CFD fundamentals, aerodynamics, multiphase flows
+- **Parameter Estimation**: PDE parameter identification, Kalman filtering, Bayesian methods
+- **Multiphysics Modeling**: Fluid-structure interaction, thermal-mechanical coupling
+- **Data Science**: Surrogate modeling, system identification, ML for PDE solving
 
 ## Critical Requirements for Mathematical Content
 
@@ -57,6 +89,25 @@ This system provides a comprehensive framework for extracting, structuring, and 
    - Special cases and limitations must be noted
    - References to other established results must be maintained
 
+## Cross-Domain Knowledge Organization
+
+For complex interdisciplinary applications like CV-based parameter estimation in multiphysics:
+
+1. **Use Tiered Knowledge Representation**:
+   - **L1**: Core concepts (100-200 words) - Essential definitions and connections
+   - **L2**: Implementation frameworks (500-1000 words) - Key steps and mathematics
+   - **L3**: Complete knowledge (2000+ words) - Full theoretical and implementation details
+
+2. **Create Explicit Knowledge Bridges**:
+   - Document transformations between visual features and physical parameters
+   - Specify how computer vision outputs become inputs to numerical simulations
+   - Formalize the mathematical mappings between domains
+
+3. **Maintain Domain-Specific Integrity**:
+   - Preserve rigorous mathematical formulations within each domain
+   - Create clear interfaces between domains with well-defined input/output structures
+   - Document assumptions made when bridging domains
+
 ## Equation Notation Standards
 
 For mathematical equations in extraction:
@@ -79,6 +130,63 @@ For mathematical equations in extraction:
    }
    ```
 
+## Julia Implementation Standards
+
+The implementation code should follow these standards:
+
+1. **Use Julia in SciML style** with comprehensive docstrings
+2. **Include complete mathematical foundations** in documentation
+3. **Implement robust test suites** that verify mathematical properties
+4. **Structure code to match the mathematical formulation** directly
+5. **Document numerical considerations** like stability and convergence
+6. **Use type parameters to enhance generality** and performance
+
+Example Julia function with proper documentation:
+
+```julia
+"""
+    analyze_coefficient_decay(coefficients::AbstractVector{T}, 
+                              basis_type::Symbol=:legendre) where T<:AbstractFloat
+
+Analyze the decay rate of expansion coefficients in a given basis.
+
+# Mathematical Foundation
+The decay rate parameter σ characterizes how quickly series coefficients decrease,
+following the model:
+
+```math
+|a_i| \\approx c \\cdot 10^{-\\sigma i}
+```
+
+where `c` is a constant and `σ` is the decay rate parameter.
+
+# Arguments
+- `coefficients::AbstractVector{T}`: Vector of expansion coefficients
+- `basis_type::Symbol`: Type of basis functions (:legendre, :chebyshev, :fourier)
+
+# Returns
+- `decay_rate::Float64`: Estimated decay rate parameter σ
+- `quality_of_fit::Float64`: R² value for the exponential fit
+- `confidence_interval::Tuple{Float64,Float64}`: 95% confidence interval for σ
+
+# Examples
+```julia
+coeffs = [1.0, 1e-1, 1e-2, 1e-3, 1e-4]
+decay_rate, fit_quality, ci = analyze_coefficient_decay(coeffs, :legendre)
+```
+
+# References
+- Liu et al. (2018). "Coefficient decay analysis for spectral methods", Journal of Scientific Computing
+"""
+function analyze_coefficient_decay(coefficients::AbstractVector{T}, 
+                                   basis_type::Symbol=:legendre) where T<:AbstractFloat
+    # Implementation
+    # ...
+    
+    return decay_rate, quality_of_fit, confidence_interval
+end
+```
+
 ## Available Tools and Functions
 
 - **Document Processing**: `pdf-to-markdown`, `docx-to-markdown`, etc.
@@ -86,6 +194,8 @@ For mathematical equations in extraction:
 - **GitHub Repository**: `create_repository`, `push_files`, etc.
 - **Atlas Project**: `project_create`, `project_note_add`, etc.
 - **File System**: `read_file`, `write_file`, `create_directory`, etc.
+- **Search Tools**: `search-arxiv`, `search-google-scholar` for expanding knowledge sources
+- **Sequential Thinking**: For complex reasoning about interdisciplinary knowledge
 
 ## Workflow Overview
 
