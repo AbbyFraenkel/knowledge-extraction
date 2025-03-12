@@ -50,27 +50,31 @@ Use this template for extracting content related to computer vision techniques, 
 
 ## Example Implementation Pattern
 
-```python
-def vision_based_parameter_estimation(image_sequence, physical_context, calibration_data):
-    """
-    Extract physical parameters from image data for multiphysics simulation
-    
-    Parameters:
-    -----------
-    image_sequence : array-like
-        Sequence of images capturing the physical phenomenon
-    physical_context : dict
-        Information about the physical system being observed
-    calibration_data : dict
-        Camera and scene calibration information
-        
-    Returns:
-    --------
-    parameters : dict
-        Estimated physical parameters with uncertainty measures
-    visualization : dict
-        Visualization data showing parameter estimation process
-    """
+```julia
+"""
+    vision_based_parameter_estimation(image_sequence, physical_context, calibration_data)
+
+Extract physical parameters from image data for multiphysics simulation.
+
+# Arguments
+- `image_sequence::Array{Array{Float64,2},1}`: Sequence of images capturing the physical phenomenon
+- `physical_context::Dict{String,Any}`: Information about the physical system being observed
+- `calibration_data::Dict{String,Any}`: Camera and scene calibration information
+
+# Returns
+- `parameters::Dict{String,Any}`: Estimated physical parameters with uncertainty measures
+- `visualization::Dict{String,Any}`: Visualization data showing parameter estimation process
+
+# Examples
+```julia
+image_seq = load_image_sequence("experiment_data/flow_video.mp4")
+phys_context = Dict("domain_size" => (0.5, 0.3), "fluid_density" => 1000.0)
+calib_data = Dict("perspective_matrix" => perspective_matrix, "scale_factor" => 0.001)
+
+params, vis = vision_based_parameter_estimation(image_seq, phys_context, calib_data)
+```
+"""
+function vision_based_parameter_estimation(image_sequence, physical_context, calibration_data)
     # 1. Preprocess images
     preprocessed_images = preprocess_images(image_sequence)
     
@@ -105,6 +109,7 @@ def vision_based_parameter_estimation(image_sequence, physical_context, calibrat
     )
     
     return parameters, visualization
+end
 ```
 
 ## Extraction Guidelines
