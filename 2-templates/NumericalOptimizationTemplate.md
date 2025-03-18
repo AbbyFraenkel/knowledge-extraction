@@ -47,3 +47,48 @@ function optimization_method(f, ∇f, x0; max_iter=100, tol=1e-6, parameters...)
     end
     return x, f(x), "max_iter", max_iter
 end
+
+## Knowledge Graph Representation
+
+```cypher
+// Create optimization method entity
+CREATE (method:OptimizationMethod:Entity {
+  name: "Newton's Method with Line Search",
+  problem_class: "nonlinear",
+  algorithm_type: "second_order",
+  convergence_rate: "quadratic",
+  convergence_conditions: ["twice continuously differentiable", "positive definite Hessian"]
+})
+
+// Create iteration scheme
+CREATE (scheme:IterationScheme:Entity {
+  name: "Newton Iteration",
+  initialization: "x₀ ∈ ℝⁿ",
+  update_rule: "xₖ₊₁ = xₖ - αₖ[∇²f(xₖ)]⁻¹∇f(xₖ)",
+  termination: "||∇f(xₖ)|| < ε"
+})
+
+// Create implementation details
+CREATE (implementation:OptimizationImplementation:Entity {
+  name: "Newton-LS Implementation",
+  line_search_strategy: "Armijo-Goldstein",
+  hyperparameters: [
+    {name: "tolerance", default_value: "1e-6"},
+    {name: "max_iterations", default_value: "100"}
+  ]
+})
+
+// Create relationships
+CREATE (method)-[:USES_SCHEME]->(scheme)
+CREATE (method)-[:HAS_IMPLEMENTATION]->(implementation)
+
+// Create test problem
+CREATE (problem:OptimizationProblem:Entity {
+  name: "Rosenbrock Function",
+  definition: "f(x,y) = (1-x)² + 100(y-x²)²",
+  characteristics: ["nonconvex", "valley-shaped"]
+})
+
+// Link method to test problem
+CREATE (method)-[:APPLIED_TO]->(problem)
+CREATE (problem)-[:SOLVED_BY]->(method)

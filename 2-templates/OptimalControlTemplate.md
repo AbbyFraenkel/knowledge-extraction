@@ -64,9 +64,9 @@ using JuMP, Ipopt
 using DifferentialEquations
 
 """
-    solve_optimal_control(dynamics::Function, 
-                         objective::Function, 
-                         constraints::Vector{Function}, 
+    solve_optimal_control(dynamics::Function,
+                         objective::Function,
+                         constraints::Vector{Function},
                          initial_state::Vector{T},
                          time_horizon::Real;
                          discretization_points::Int=100,
@@ -128,7 +128,7 @@ initial_state = [10.0, 0.0]
 time_horizon = 5.0
 control_bounds = ([-2.0], [2.0])  # Control limited to [-2, 2]
 
-solution = solve_optimal_control(dynamics, objective, constraints, 
+solution = solve_optimal_control(dynamics, objective, constraints,
                                 initial_state, time_horizon,
                                 discretization_points=200,
                                 control_bounds=control_bounds)
@@ -138,14 +138,14 @@ solution = solve_optimal_control(dynamics, objective, constraints,
 - Betts, J.T. (2010). Practical Methods for Optimal Control and Estimation Using Nonlinear Programming
 - Kelly, M. (2017). An Introduction to Trajectory Optimization: How to Do Your Own Direct Collocation
 """
-function solve_optimal_control(dynamics::Function, 
-                              objective::Function, 
-                              constraints::Vector{Function}, 
+function solve_optimal_control(dynamics::Function,
+                              objective::Function,
+                              constraints::Vector{Function},
                               initial_state::Vector{T},
                               time_horizon::Real;
                               discretization_points::Int=100,
                               control_bounds::Tuple{Vector{T},Vector{T}}=nothing) where T<:AbstractFloat
-    
+
     # Implementation details would go here, including:
     # 1. Discretize the problem using collocation
     # 2. Set up the optimization problem using JuMP
@@ -155,10 +155,10 @@ function solve_optimal_control(dynamics::Function,
     # 6. Define the objective function
     # 7. Solve the optimization problem
     # 8. Process the results
-    
+
     # Placeholder for implementation
     # ...
-    
+
     return solution
 end
 ```
@@ -167,7 +167,7 @@ end
 
 ```julia
 """
-    mpc_controller(system_model::Function, 
+    mpc_controller(system_model::Function,
                   objective::Function,
                   constraints::Vector{Function},
                   current_state::Vector{T},
@@ -223,17 +223,17 @@ When using MPC with PDE-based systems, special considerations include:
 2. Model reduction techniques may be necessary to make the optimization tractable
 3. Spatial discretization must be handled carefully to balance accuracy and computation time
 """
-function mpc_controller(system_model::Function, 
+function mpc_controller(system_model::Function,
                        objective::Function,
                        constraints::Vector{Function},
                        current_state::Vector{T},
                        prediction_horizon::Int,
                        control_horizon::Int,
                        sampling_time::Real) where T<:AbstractFloat
-    
+
     # Implementation would go here
     # ...
-    
+
     return optimal_control, predicted_trajectory
 end
 ```
@@ -299,9 +299,9 @@ where:
 function enzyme_kinetics(x, p, t)
     # p[1] = k_cat, p[2] = K_M
     S = x[1]  # substrate concentration
-    
+
     dSdt = -p[1]*S/(p[2] + S)
-    
+
     return [dSdt]
 end
 
@@ -330,10 +330,10 @@ function estimate_parameters_optimal_control(system_model::Function,
                                           initial_parameter_guess::Vector{T},
                                           measurement_times::Vector{T},
                                           state_weights::Vector{T}=ones(size(experimental_data, 1))) where T<:AbstractFloat
-    
+
     # Implementation would go here
     # ...
-    
+
     return estimated_parameters, confidence_intervals, goodness_of_fit
 end
 ```
@@ -377,3 +377,56 @@ When extracting optimal control methods:
    * Specify the handling of different time scales
    * Note any decomposition methods used
    * Document the interdependencies between control variables and physical phenomena
+
+## Knowledge Graph Representation
+
+Create knowledge graph entities and relationships using Cypher:
+
+```cypher
+// Create optimal control problem entity
+CREATE (ocp:OptimalControlProblem:Entity {
+  name: "Minimum Energy Path Control",
+  problem_type: "trajectory_optimization",
+  state_dimension: 2,
+  control_dimension: 1,
+  time_horizon: "finite",
+  description: "Minimize control energy while following a specified path"
+})
+
+// Create system dynamics entity
+CREATE (dynamics:SystemDynamics:Entity {
+  name: "Double Integrator System",
+  type: "ode",
+  state_variables: ["position", "velocity"],
+  control_variables: ["acceleration"],
+  governing_equations: ["dx₁/dt = x₂", "dx₂/dt = u₁"]
+})
+
+// Create objective function entity
+CREATE (objective:ObjectiveFunction:Entity {
+  name: "Minimum Energy Functional",
+  type: "integral",
+  cost_functional: "J(x,u) = ∫₀ᵀ u²(t) dt"
+})
+
+// Link the entities
+CREATE (ocp)-[:HAS_DYNAMICS]->(dynamics)
+CREATE (ocp)-[:HAS_OBJECTIVE]->(objective)
+
+// Create solution method relationship
+CREATE (method:SolutionMethod:Entity {
+  name: "Direct Collocation",
+  approach: "direct",
+  discretization_method: "Legendre-Gauss-Lobatto",
+  points: 50
+})
+CREATE (ocp)-[:SOLVED_USING]->(method)
+
+// Create implementation entity
+CREATE (implementation:Implementation:Entity {
+  name: "OptimalControlSolver.jl",
+  language: "Julia",
+  solver: "Ipopt"
+})
+CREATE (implementation)-[:IMPLEMENTS]->(method)
+```

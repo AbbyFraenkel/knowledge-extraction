@@ -181,6 +181,91 @@ For established mathematical concepts, include references to standard databases:
 }
 ```
 
+## Knowledge Graph Implementation
+
+Use the following Cypher commands to implement the nomenclature system described above:
+
+```cypher
+// Create symbol registry entry
+CREATE (symbol:MathematicalSymbol:Entity {
+  symbol: "σ",
+  canonical_name: "Decay Rate Parameter",
+  domain: "Approximation Theory",
+  standard_definition: "Characterizes the exponential decay rate of series coefficients",
+  latex_representation: "\\sigma",
+  unicode_codepoint: "U+03C3",
+  alternative_notations: ["s", "σ_d"],
+  related_symbols: ["τ", "μ"]
+})
+
+// Create source mapping
+CREATE (paper:Publication:Entity {
+  title: "Spectral Analysis of Legendre Approximations",
+  author: "Liu et al.",
+  year: 2018,
+  id: "Liu2018"
+})
+
+CREATE (mapping:SourceMapping:Entity {
+  paper_term: "coefficient decay",
+  canonical_term: "Decay Rate Parameter",
+  symbol_used: "σ",
+  definition_location: "Section 2.3, p.1477",
+  context: "Legendre polynomial approximation"
+})
+
+CREATE (mapping)-[:FROM_SOURCE]->(paper)
+CREATE (mapping)-[:MAPS_TO]->(symbol)
+
+// Create cross-domain terminology mapping
+CREATE (concept:Concept:Entity {
+  name: "Eigenvalue",
+  description: "Scalar factor in eigenvector equation"
+})
+
+CREATE (la_domain:Domain:Entity {
+  name: "Linear Algebra",
+  standard_symbol: "λ",
+  definition: "Scalar factor in the equation Av = λv"
+})
+
+CREATE (de_domain:Domain:Entity {
+  name: "Differential Equations",
+  standard_symbol: "λ",
+  definition: "Parameter in the characteristic equation"
+})
+
+CREATE (qm_domain:Domain:Entity {
+  name: "Quantum Mechanics",
+  standard_symbol: "E",
+  definition: "Energy level in the eigenvalue equation Hψ = Eψ"
+})
+
+CREATE (concept)-[:HAS_REPRESENTATION]->(la_domain)
+CREATE (concept)-[:HAS_REPRESENTATION]->(de_domain)
+CREATE (concept)-[:HAS_REPRESENTATION]->(qm_domain)
+CREATE (concept)-[:HAS_CANONICAL_SYMBOL {symbol: "λ"}]->(concept)
+CREATE (qm_domain)-[:EXCEPTION_TO_CANONICAL]->()
+
+// Create MSC Classification mapping
+CREATE (legendre:MathematicalConcept:Entity {
+  name: "Legendre Polynomial",
+  description: "Orthogonal polynomial solutions to Legendre's differential equation"
+})
+
+CREATE (msc:MSCClassification:Entity {
+  primary: "33C45",
+  secondary: ["42C10", "65D15"],
+  descriptors: {
+    "33C45": "Orthogonal polynomials and functions of hypergeometric type",
+    "42C10": "Fourier series in special orthogonal functions",
+    "65D15": "Algorithms for functional approximation"
+  }
+})
+
+CREATE (legendre)-[:HAS_CLASSIFICATION]->(msc)
+```
+
 ## Regular Updates and Maintenance
 
 The nomenclature system requires:

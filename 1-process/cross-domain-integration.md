@@ -7,16 +7,28 @@ This phase establishes methods for connecting knowledge across different domains
 ## Process Steps
 
 ### 1. Bridge Entity Creation
-- Use `create_entities({entities: [...]})` to create cross-domain bridge entities:
-  * Format: `{name: "bridge name", entityType: "CrossDomainBridge", observations: ["connects domain X to domain Y", "transformation process", "applications"]}`
+- Use Cypher CREATE statements to create cross-domain bridge entities:
+  ```cypher
+  CREATE (bridge:CrossDomainBridge:Entity {
+    name: "bridge name",
+    description: "connects domain X to domain Y",
+    transformation_process: "description of the transformation process",
+    applications: ["application1", "application2"]
+  })
+  ```
   * Required attributes: source domain, target domain, transformation process
   * Optional attributes: limitations, prerequisites, examples
 
 ### 2. Cross-Domain Relationship Mapping
-- Use `create_relations({relations: [...]})` to establish cross-domain relationships:
-  * Transformation: `transforms_to`, `maps_between`, `translates_from`
-  * Adaptation: `adapts_for`, `specialized_as`, `generalized_from`
-  * Combination: `combines_with`, `enhances`, `constrains`
+- Use Cypher MATCH/CREATE to establish cross-domain relationships:
+  ```cypher
+  MATCH (source:Entity {name: "Source Entity"}),
+        (target:Entity {name: "Target Entity"})
+  CREATE (source)-[:TRANSFORMS_TO]->(target)
+  ```
+  * Transformation relationships: `TRANSFORMS_TO`, `MAPS_BETWEEN`, `TRANSLATES_FROM`
+  * Adaptation relationships: `ADAPTS_FOR`, `SPECIALIZED_AS`, `GENERALIZED_FROM`
+  * Combination relationships: `COMBINES_WITH`, `ENHANCES`, `CONSTRAINS`
 
 ### 3. Knowledge Flow Definition
 - Document the process by which knowledge from one domain influences another
@@ -49,70 +61,78 @@ To optimize context window usage while preserving depth:
 
 ## Available Tools
 
-### Knowledge Graph Functions
-- `create_entities`: Create bridge entities in the knowledge graph
-- `create_relations`: Establish cross-domain relationships
-- `search_nodes`: Search for entities across multiple domains
-- `open_nodes`: Access specific bridge nodes by name
+### Knowledge Graph Cypher Operations
+- `CREATE`: Create nodes and relationships in the knowledge graph
+- `MATCH`: Find nodes and patterns in the knowledge graph
+- `WHERE`: Filter query results based on conditions
+- `RETURN`: Specify data to be returned from queries
+- `MERGE`: Create nodes/relationships if they don't exist, or match them if they do
 
 ## Example
 
-```javascript
+```cypher
 // Create a cross-domain bridge between computer vision and fluid dynamics
-createEntities({
-  entities: [
-    {
-      name: "Optical Flow to CFD Boundary Conditions",
-      entityType: "CrossDomainBridge",
-      observations: [
-        "Transforms optical flow vector fields from video data into boundary conditions for CFD simulations",
-        "Applies physics constraints to ensure conservation properties",
-        "Requires camera calibration and coordinate transformation",
-        "Enables non-intrusive measurement of complex fluid flows"
-      ]
-    }
-  ]
+CREATE (bridge:CrossDomainBridge:Entity {
+  name: 'Optical Flow to CFD Boundary Conditions',
+  path: 'cross_domain_bridges/vision_to_numerics/optical_flow_to_cfd',
+  tier1_knowledge: 'Transforms optical flow vector fields from video data into boundary conditions for CFD simulations. Applies physics constraints to ensure conservation properties. Requires camera calibration and coordinate transformation. Enables non-intrusive measurement of complex fluid flows.',
+  file_references: 'FILE:cross_domain_bridges/vision_to_numerics/optical_flow_to_cfd.md'
 });
 
 // Establish the cross-domain relationships
-createRelations({
-  relations: [
-    {
-      from: "Optical Flow to CFD Boundary Conditions",
-      to: "Physics-Informed Optical Flow", 
-      relationType: "uses_technique"
-    },
-    {
-      from: "Optical Flow to CFD Boundary Conditions",
-      to: "Free Surface Boundary Conditions",
-      relationType: "provides_input_for"
-    }
+MATCH (bridge:CrossDomainBridge {name: 'Optical Flow to CFD Boundary Conditions'})
+MATCH (technique:VisualTechnique {name: 'Physics-Informed Optical Flow'})
+CREATE (bridge)-[:USES_TECHNIQUE]->(technique);
+
+MATCH (bridge:CrossDomainBridge {name: 'Optical Flow to CFD Boundary Conditions'})
+MATCH (boundary:PhysicalApplication {name: 'Free Surface Boundary Conditions'})
+CREATE (bridge)-[:PROVIDES_INPUT_FOR]->(boundary);
+
+// Document the knowledge flow
+CREATE (flow:KnowledgeFlow:Entity {
+  name: 'Optical Flow to CFD Knowledge Flow',
+  source_domain: 'computer_vision',
+  source_concept: 'optical_flow',
+  source_representation: 'pixel velocity field (u,v)'
+});
+
+// Add transformation steps
+CREATE (transform:Transformation:Entity {
+  name: 'Optical Flow to CFD Transformation',
+  steps: [
+    'Apply physics constraints (mass conservation)',
+    'Transform from image to physical coordinates',
+    'Scale velocities to physical units',
+    'Filter noise using temporal consistency'
   ]
 });
 
-// Document the knowledge flow
-const knowledgeFlow = {
-  source: {
-    domain: "computer_vision",
-    concept: "optical_flow",
-    representation: "pixel velocity field (u,v)"
-  },
-  transformation: [
-    "Apply physics constraints (mass conservation)",
-    "Transform from image to physical coordinates",
-    "Scale velocities to physical units",
-    "Filter noise using temporal consistency"
-  ],
-  target: {
-    domain: "fluid_dynamics",
-    concept: "boundary_conditions",
-    representation: "physical velocity field and surface height"
-  },
-  validation: {
-    methods: ["Comparison with PIV measurements", "Conservation properties"],
-    error_metrics: ["RMSE", "Conservation violation"]
-  }
-};
+// Add target information
+CREATE (target:Target:Entity {
+  name: 'CFD Boundary Conditions Target',
+  domain: 'fluid_dynamics',
+  concept: 'boundary_conditions',
+  representation: 'physical velocity field and surface height'
+});
+
+// Add validation methods
+CREATE (validation:Validation:Entity {
+  name: 'Optical Flow to CFD Validation',
+  methods: ['Comparison with PIV measurements', 'Conservation properties'],
+  error_metrics: ['RMSE', 'Conservation violation']
+});
+
+// Connect the knowledge flow components
+MATCH (bridge:CrossDomainBridge {name: 'Optical Flow to CFD Boundary Conditions'})
+MATCH (flow:KnowledgeFlow {name: 'Optical Flow to CFD Knowledge Flow'})
+MATCH (transform:Transformation {name: 'Optical Flow to CFD Transformation'})
+MATCH (target:Target {name: 'CFD Boundary Conditions Target'})
+MATCH (validation:Validation {name: 'Optical Flow to CFD Validation'})
+
+CREATE (bridge)-[:DOCUMENTS]->(flow)
+CREATE (flow)-[:HAS_TRANSFORMATION]->(transform)
+CREATE (flow)-[:HAS_TARGET]->(target)
+CREATE (flow)-[:HAS_VALIDATION]->(validation);
 ```
 
 ## Integration Examples Repository

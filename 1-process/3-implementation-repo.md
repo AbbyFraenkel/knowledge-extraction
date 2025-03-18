@@ -70,6 +70,13 @@ This phase transforms the knowledge graph and mathematical content into executab
 - `edit_file`: Make line-based edits to a file
 - `create_directory`: Create a new directory
 
+### Knowledge Graph Cypher Operations
+- `CREATE`: Create entities and relationships
+- `MATCH`: Find nodes and patterns
+- `MERGE`: Create entities if they don't exist, or match them if they do
+- `SET`: Update properties on nodes and relationships
+- `RETURN`: Specify data to be returned from queries
+
 ## Example
 
 ```javascript
@@ -94,4 +101,41 @@ pushFiles({
     {path: "algorithms/pseudocode/hp_legendre_algorithm.md", content: algorithmPseudocode}
   ]
 })
+```
+
+```cypher
+// Link implementation repository to knowledge graph
+CREATE (repo:ImplementationRepository:Entity {
+  name: "hp-legendre-method",
+  url: "https://github.com/username/hp-legendre-method",
+  version: "1.0.0",
+  description: "Implementation of hp-Legendre adaptive mesh refinement"
+})
+
+// Connect repository to mathematical concepts
+MATCH (concept:MathematicalConcept {name: "Legendre Polynomial Coefficient Decay Rate"})
+CREATE (repo)-[:IMPLEMENTS]->(concept)
+
+// Connect repository to numerical methods
+MATCH (method:NumericalMethod {name: "hp-Adaptive Method"})
+CREATE (repo)-[:REALIZES]->(method)
+
+// Add implementation components
+CREATE (component:ImplementationComponent:Entity {
+  name: "HPLegendre.jl",
+  path: "src/hp_legendre.jl",
+  purpose: "Core implementation of hp-Legendre method",
+  language: "Julia"
+})
+CREATE (repo)-[:CONTAINS]->(component)
+
+// Track documentation relationship
+MATCH (equation:MathematicalEquation {name: "Error Bound Equation"})
+CREATE (docFile:Documentation:Entity {
+  name: "Mathematics Documentation",
+  path: "docs/mathematics.md",
+  covers: ["Legendre polynomials", "Error bounds", "Coefficient decay"]
+})
+CREATE (repo)-[:DOCUMENTS]->(equation)
+CREATE (docFile)-[:EXPLAINS]->(equation)
 ```

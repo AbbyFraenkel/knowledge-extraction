@@ -35,6 +35,14 @@ This phase creates clear integration guides for incorporating the extracted know
 - `project_note_add`: Add notes to an Atlas project
 - `project_link_add`: Add external links to a project
 
+### Knowledge Graph Cypher Operations
+- `MATCH`: Find nodes and patterns in the knowledge graph
+- `CREATE`: Create new nodes or relationships
+- `MERGE`: Create entities if they don't exist, or match them if they do
+- `SET`: Update properties on nodes and relationships
+- `WITH`: Chain together different parts of a query
+- `RETURN`: Specify what to include in the results
+
 ## Example Integration Steps
 
 ```javascript
@@ -56,6 +64,38 @@ projectNoteAdd({
   text: kitchenSinkIntegrationGuide,
   tags: ["kitchensink", "integration", "implementation"]
 })
+```
+
+```cypher
+// Link implementation to knowledge graph entities
+MATCH (method:NumericalMethod {name: "hp-Adaptive Method"})
+CREATE (implementation:Implementation:Entity {
+  name: "HPLegendre.jl",
+  language: "Julia",
+  path: "C:/Users/abiga/OneDrive/Git/knowledge-extraction/hp-legendre-2018/implementation/HPLegendre.jl",
+  version: "1.0.0"
+})
+CREATE (implementation)-[:IMPLEMENTS]->(method);
+
+// Document integration endpoints
+MATCH (impl:Implementation {name: "HPLegendre.jl"})
+MATCH (target:Application {name: "KitchenSink"})
+CREATE (integration:IntegrationPath:Entity {
+  name: "HPLegendre-KitchenSink Integration",
+  description: "Integration pathway for hp-Legendre methods in KitchenSink",
+  entry_points: ["src/Methods/Adaptive/HPLegendre.jl"],
+  required_dependencies: ["LinearAlgebra", "FastGaussQuadrature"]
+})
+CREATE (integration)-[:CONNECTS]->(impl)
+CREATE (integration)-[:TARGETS]->(target);
+
+// Record integration documentation
+MERGE (doc:Documentation:Entity {
+  name: "HPLegendre Integration Guide"
+})
+SET doc.content = "# Integration Guide for HPLegendre\n\n## Overview\n...",
+    doc.tags = ["kitchensink", "integration", "implementation"]
+CREATE (integration)-[:HAS_DOCUMENTATION]->(doc);
 ```
 
 ## Integration Documentation Template

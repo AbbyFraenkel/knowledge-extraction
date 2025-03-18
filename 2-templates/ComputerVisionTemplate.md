@@ -77,37 +77,37 @@ params, vis = vision_based_parameter_estimation(image_seq, phys_context, calib_d
 function vision_based_parameter_estimation(image_sequence, physical_context, calibration_data)
     # 1. Preprocess images
     preprocessed_images = preprocess_images(image_sequence)
-    
+
     # 2. Extract relevant features
     features = extract_features(preprocessed_images)
-    
+
     # 3. Track features over time/space
     tracked_features = track_features(features, image_sequence)
-    
+
     # 4. Transform to physical space
     physical_measurements = image_to_physical_transform(
-        tracked_features, 
+        tracked_features,
         calibration_data
     )
-    
+
     # 5. Apply physics constraints
     physics_constrained_measurements = apply_physics_constraints(
         physical_measurements,
         physical_context
     )
-    
+
     # 6. Estimate parameters with uncertainty
     parameters = estimate_parameters_with_uncertainty(
         physics_constrained_measurements
     )
-    
+
     # 7. Generate validation visualizations
     visualization = create_validation_visualization(
         image_sequence,
         tracked_features,
         parameters
     )
-    
+
     return parameters, visualization
 end
 ```
@@ -140,3 +140,75 @@ When extracting computer vision methods for parameter estimation:
    * Document comparison with alternative measurement techniques
    * Specify validation metrics and acceptable thresholds
    * Include information about validation test cases
+
+## Knowledge Graph Representation
+
+Create knowledge graph entities and relationships using Cypher:
+
+```cypher
+// Create computer vision method entity
+CREATE (method:ComputerVisionMethod:Entity {
+  name: "Physics-Informed Optical Flow",
+  method_type: "tracking",
+  description: "Optical flow technique that incorporates physical constraints for fluid flow analysis",
+  key_advantages: ["physically consistent", "noise resistant", "suitable for multiphysics applications"]
+})
+
+// Create input data requirements
+CREATE (input:InputData:Entity {
+  name: "High-Speed Video Input",
+  type: "image_sequence",
+  characteristics: ["high frame rate (>100 fps)", "good contrast", "uniform illumination"],
+  preprocessing_requirements: ["Gaussian filtering", "histogram equalization", "background subtraction"]
+})
+
+// Create algorithm details
+CREATE (algorithm:Algorithm:Entity {
+  name: "Physics-Informed Lucas-Kanade",
+  key_steps: [
+    "Compute image gradients",
+    "Form structure tensor",
+    "Apply physical constraints (mass conservation)",
+    "Solve weighted least squares problem",
+    "Filter results using physical consistency"
+  ],
+  computational_complexity: "O(n²) per feature point",
+  accuracy_metrics: ["angular error", "endpoint error", "physics constraint violation"]
+})
+
+// Create physics integration details
+CREATE (physics:PhysicsIntegration:Entity {
+  name: "Fluid Dynamics Integration",
+  physical_parameters: ["velocity field", "surface height", "pressure gradient"],
+  spatial_mapping: "Homography transformation with perspective correction",
+  temporal_mapping: "Linear time scaling with frame rate compensation",
+  uncertainty_quantification: "Bayesian error propagation with physics-based priors"
+})
+
+// Create multiphysics connection
+CREATE (connection:MultiphysicsConnection:Entity {
+  name: "Flow Field to CFD",
+  target_physics_domain: "fluid_dynamics",
+  parameter_types: [
+    {name: "boundary_conditions", approach: "direct measurement"},
+    {name: "velocity_field", approach: "filtered observation"},
+    {name: "surface_deformation", approach: "stereoscopic reconstruction"}
+  ],
+  governing_equations: ["Navier-Stokes", "Mass conservation"]
+})
+
+// Create validation approach
+CREATE (validation:ValidationApproach:Entity {
+  name: "PIV Comparison Validation",
+  benchmark_cases: ["laminar channel flow", "vortex shedding"],
+  error_metrics: ["RMSE", "maximum deviation", "conservation violation"],
+  comparison_methods: ["Particle Image Velocimetry", "Direct numerical simulation"]
+})
+
+// Create relationships
+CREATE (method)-[:USES_INPUT]->(input)
+CREATE (method)-[:IMPLEMENTS]->(algorithm)
+CREATE (method)-[:ENABLES]->(physics)
+CREATE (physics)-[:CONNECTS_TO]->(connection)
+CREATE (method)-[:VALIDATED_BY]->(validation)
+```

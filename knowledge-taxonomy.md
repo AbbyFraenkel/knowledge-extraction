@@ -219,62 +219,38 @@ Cross-domain bridges connect concepts across different domains while minimizing 
 ## Usage Guidelines
 
 ### Creating Entities with Tiered Knowledge
-```javascript
+```cypher
 // Create a mathematical concept with tiered knowledge
-createEntities({
-  entities: [
-    {
-      name: "Physics-Informed Optical Flow",
-      entityType: "CrossDomainBridge",
-      observations: [
-        // L1: Core concept
-        "Computer vision technique that incorporates physical constraints (mass conservation, momentum) into optical flow estimation to improve fluid flow measurement accuracy and physical consistency.",
-        
-        // L2: Functional details (to be loaded when needed)
-        "FILE:physics_informed_optical_flow_L2.md",
-        
-        // L3: Complete knowledge (to be loaded on demand)
-        "FILE:physics_informed_optical_flow_L3.md"
-      ]
-    }
-  ]
+CREATE (piof:CrossDomainBridge {
+  name: "Physics-Informed Optical Flow",
+  tier_L1: "Computer vision technique that incorporates physical constraints (mass conservation, momentum) into optical flow estimation to improve fluid flow measurement accuracy and physical consistency.",
+  tier_L2_file: "physics_informed_optical_flow_L2.md",
+  tier_L3_file: "physics_informed_optical_flow_L3.md"
 })
 ```
 
 ### Establishing Cross-Domain Relationships
-```javascript
+```cypher
 // Create relationships between computer vision and fluid dynamics
-createRelations({
-  relations: [
-    {
-      from: "Physics-Informed Optical Flow",
-      to: "Free Surface Flow Estimation",
-      relationType: "enables_measurement_of"
-    },
-    {
-      from: "Optical Flow Constraint Equation",
-      to: "Navier-Stokes Mass Conservation",
-      relationType: "mathematically_analogous_to"
-    }
-  ]
-})
+MATCH (piof:Entity {name: "Physics-Informed Optical Flow"})
+MATCH (flow:Entity {name: "Free Surface Flow Estimation"})
+CREATE (piof)-[:enables_measurement_of]->(flow);
+
+MATCH (ofce:Entity {name: "Optical Flow Constraint Equation"})
+MATCH (nsmc:Entity {name: "Navier-Stokes Mass Conservation"})
+CREATE (ofce)-[:mathematically_analogous_to]->(nsmc);
 ```
 
 ### Query Optimization
-When retrieving knowledge, request only the necessary knowledge tier:
-```javascript
+```cypher
 // Start with core concept (L1)
-const concept = openNodes({
-  names: ["Physics-Informed Optical Flow"]
-});
+MATCH (concept:Entity {name: "Physics-Informed Optical Flow"})
+RETURN concept;
 
-// Load functional details (L2) only when needed
-if (needImplementationDetails) {
-  const detailedConcept = loadTier({
-    node: concept,
-    tier: "L2"
-  });
-}
+// Load functional details (L2) when needed
+MATCH (concept:Entity {name: "Physics-Informed Optical Flow"})
+WHERE concept.tier_L2_file IS NOT NULL
+RETURN concept.tier_L2_file AS detailedContentFile;
 ```
 
 ## Implementation Notes

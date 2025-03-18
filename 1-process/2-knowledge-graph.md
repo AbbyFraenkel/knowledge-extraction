@@ -7,73 +7,118 @@ This phase transforms structured content into interconnected knowledge entities 
 ## Process Steps
 
 ### 1. Mathematical Entity Creation
-- Use `create_entities({entities: [...]})` to create mathematical concept entities:
-  * Standard format: `{name: "concept name", entityType: "MathematicalConcept", observations: ["definition", "properties", "applications"]}`
+- Use Cypher CREATE statements to create mathematical concept entities:
+  * Standard format:
+  ```cypher
+  CREATE (c:MathematicalConcept:Entity {
+    name: "concept name",
+    description: "formal definition",
+    properties: ["property1", "property2"],
+    applications: ["application1", "application2"]
+  })
+  ```
   * Required attributes: formal definition, key properties, reference index
   * Optional attributes: historical context, limitations, alternatives
 
 - Create equation entities:
-  * Format: `{name: "Equation X", entityType: "MathematicalEquation", observations: ["Full LaTeX representation", "Explanation of terms", "Usage context"]}`
+  * Format:
+  ```cypher
+  CREATE (e:MathematicalEquation:Entity {
+    name: "Equation X",
+    latex_representation: "\\hat{e} = \\frac{c10^{-\\sigma(N+1)}}{\\sqrt{1-10^{-2\\sigma}}}",
+    explanation: "Explanation of terms",
+    context: "Usage context"
+  })
+  ```
 
 - Create algorithm/method entities:
-  * Format: `{name: "algorithm name", entityType: "Algorithm", observations: ["purpose", "steps", "complexity"]}`
+  * Format:
+  ```cypher
+  CREATE (a:Algorithm:Entity {
+    name: "algorithm name",
+    purpose: "algorithm purpose",
+    steps: ["step1", "step2", "step3"],
+    complexity: "O(n log n)"
+  })
+  ```
   * Required attributes: inputs, outputs, pseudocode, complexity
   * Optional attributes: convergence properties, stability conditions
 
 - Create numerical method entities:
-  * Format: `{name: "method name", entityType: "NumericalMethod", observations: ["mathematical foundation", "implementation details", "error analysis"]}`
+  * Format:
+  ```cypher
+  CREATE (nm:NumericalMethod:Entity {
+    name: "method name",
+    mathematical_foundation: "underlying theory",
+    implementation_details: "key implementation aspects",
+    error_analysis: "error bounds and behavior"
+  })
+  ```
 
 - Create application entities:
-  * Format: `{name: "application name", entityType: "Application", observations: ["domain", "benefits", "implementation"]}`
+  * Format:
+  ```cypher
+  CREATE (app:Application:Entity {
+    name: "application name",
+    domain: "application domain",
+    benefits: ["benefit1", "benefit2"],
+    implementation: "implementation approach"
+  })
+  ```
 
 ### 2. Relationship Mapping
-- Use `create_relations({relations: [...]})` to establish relationships:
-  * Mathematical dependencies: `derives_from`, `is_equivalent_to`, `approximates`
-  * Hierarchical: `is_a`, `type_of`, `subclass_of`, `instance_of`
-  * Implementation: `implements`, `realizes`, `extends`, `optimizes`
-  * Comparative: `similar_to`, `different_from`, `improves_upon`, `alternative_to`
+- Use Cypher MATCH/CREATE to establish relationships:
+  * Mathematical dependencies: `MATCH (a), (b) WHERE a.name = "X" AND b.name = "Y" CREATE (a)-[:DERIVES_FROM]->(b)`
+  * Hierarchical: `MATCH (a), (b) WHERE a.name = "X" AND b.name = "Y" CREATE (a)-[:IS_A]->(b)`
+  * Implementation: `MATCH (a), (b) WHERE a.name = "X" AND b.name = "Y" CREATE (a)-[:IMPLEMENTS]->(b)`
+  * Comparative: `MATCH (a), (b) WHERE a.name = "X" AND b.name = "Y" CREATE (a)-[:SIMILAR_TO]->(b)`
 
 ### 3. Knowledge Graph Validation
-- Use `read_graph({})` to verify completeness of the graph
-- Verify that ALL equations and algorithms are represented
-- Verify connectivity: no isolated nodes or clusters
+- Use Cypher MATCH queries to verify completeness of the graph
+- Verify that ALL equations and algorithms are represented:
+  ```cypher
+  MATCH (e:MathematicalEquation) RETURN count(e) AS EquationCount
+  MATCH (a:Algorithm) RETURN count(a) AS AlgorithmCount
+  ```
+- Verify connectivity: no isolated nodes or clusters:
+  ```cypher
+  MATCH (n) WHERE NOT (n)--() RETURN n.name AS IsolatedNodes
+  ```
 - Verify accuracy: relationships match paper's descriptions
 - Verify retrievability: all nodes have clear access paths
 
 ## Available Tools
 
-### Knowledge Graph Functions
-- `create_entities`: Create entities in the knowledge graph
-- `create_relations`: Establish relationships between entities
-- `read_graph`: Retrieve the entire knowledge graph
-- `search_nodes`: Search for specific nodes in the knowledge graph
-- `open_nodes`: Access specific nodes by name
+### Knowledge Graph Cypher Operations
+- `CREATE`: Create entities and relationships in the knowledge graph
+- `MATCH`: Find nodes and patterns in the knowledge graph
+- `WHERE`: Filter query results based on conditions
+- `RETURN`: Specify data to be returned from queries
+- `MERGE`: Create entities if they don't exist, or match them if they do
+- `DELETE`: Remove entities or relationships from the graph
+- `SET`: Update properties on nodes and relationships
 
 ## Example
 
-```javascript
+```cypher
 // Create mathematical concept entities
-createEntities({
-  entities: [
-    {
-      name: "Legendre Polynomial Coefficient Decay Rate",
-      entityType: "MathematicalProperty",
-      observations: [
-        "Characterizes how quickly Legendre polynomial coefficients decrease",
-        "Indicates function smoothness when rate exceeds threshold",
-        "Formally defined as parameter σ in |a_i| ≈ c⋅10^(-σi)"
-      ]
-    },
-    // Add equation entity with full LaTeX
-    {
-      name: "Error Bound Equation",
-      entityType: "MathematicalEquation",
-      observations: [
-        "The error bound is given by: $$\\hat{e} = \\frac{c10^{-\\sigma(N+1)}}{\\sqrt{1-10^{-2\\sigma}}}$$",
-        "Where σ is the decay rate parameter",
-        "This provides an upper bound on the approximation error"
-      ]
-    }
-  ]
-})
+CREATE (decay:MathematicalProperty:Entity {
+  name: "Legendre Polynomial Coefficient Decay Rate",
+  description: "Characterizes how quickly Legendre polynomial coefficients decrease",
+  indicator: "Indicates function smoothness when rate exceeds threshold",
+  formal_definition: "Formally defined as parameter σ in |a_i| ≈ c⋅10^(-σi)"
+});
+
+// Add equation entity with full LaTeX
+CREATE (error:MathematicalEquation:Entity {
+  name: "Error Bound Equation",
+  latex_representation: "\\hat{e} = \\frac{c10^{-\\sigma(N+1)}}{\\sqrt{1-10^{-2\\sigma}}}",
+  explanation: "Where σ is the decay rate parameter",
+  application: "This provides an upper bound on the approximation error"
+});
+
+// Create relationship between concept and equation
+MATCH (decay:MathematicalProperty {name: "Legendre Polynomial Coefficient Decay Rate"}),
+      (error:MathematicalEquation {name: "Error Bound Equation"})
+CREATE (error)-[:DEPENDS_ON]->(decay);
 ```

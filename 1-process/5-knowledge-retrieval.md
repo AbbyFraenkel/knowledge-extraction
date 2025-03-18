@@ -8,11 +8,21 @@ This phase establishes systems for efficiently retrieving mathematical knowledge
 
 ### 1. Query Processing
 - Parse natural language or structured queries
-- Use `search_nodes({query: "concept"})` to find relevant knowledge
+- Use Cypher to search for relevant knowledge:
+  ```cypher
+  MATCH (n:Entity)
+  WHERE n.name CONTAINS "concept" OR n.description CONTAINS "concept"
+  RETURN n
+  ```
 - Identify relevant implementation components
 
 ### 2. Mathematical Content Retrieval
-- Use `open_nodes({names: ["specific concept"]})` to retrieve only necessary nodes
+- Use Cypher to retrieve specific nodes:
+  ```cypher
+  MATCH (n:Entity)
+  WHERE n.name IN ["specific concept1", "specific concept2"]
+  RETURN n
+  ```
 - Access specific equations, algorithms, or methods by reference ID
 - Use the equation and algorithm databases for direct lookup
 
@@ -48,9 +58,15 @@ To maximize context window efficiency:
 
 ## Available Tools
 
-### Knowledge Graph Functions
-- `search_nodes`: Search for specific nodes in the knowledge graph
-- `open_nodes`: Access specific nodes by name
+### Knowledge Graph Cypher Operations
+- `MATCH`: Find nodes and patterns in the knowledge graph
+- `WHERE`: Filter query results based on conditions
+- `RETURN`: Specify data to be returned from queries
+- `ORDER BY`: Sort the results of a query
+- `LIMIT`: Restrict the number of results returned
+- `SKIP`: Skip a number of results before returning the rest
+- `WITH`: Chain together different parts of a query
+- `OPTIONAL MATCH`: Match patterns if they exist, return null otherwise
 
 ### File System Functions
 - `read_file`: Read file contents
@@ -58,21 +74,19 @@ To maximize context window efficiency:
 
 ## Example Query Processing
 
-```javascript
+```cypher
 // Process a query about Legendre coefficient decay rates
-const relevantNodes = searchNodes({
-  query: "Legendre coefficient decay rate"
-})
+MATCH (concept:Entity)
+WHERE concept.name CONTAINS "Legendre" AND concept.name CONTAINS "decay rate"
+RETURN concept;
 
 // Retrieve specific equations related to the concept
-const errorBoundEquation = openNodes({
-  names: ["Error Bound Equation"]
-})
+MATCH (equation:MathematicalEquation)
+WHERE equation.name = "Error Bound Equation"
+RETURN equation;
 
-// Generate response with mathematical formulation
-const response = {
-  concept: relevantNodes[0],
-  equations: errorBoundEquation,
-  implementation: `To implement coefficient decay rate analysis, use the coefficient_decay_rate() function from HPLegendre.jl`
-}
+// Generate extended query to find related concepts
+MATCH (concept:Entity)-[:RELATED_TO|DEPENDS_ON|DERIVES_FROM]->(related:Entity)
+WHERE concept.name CONTAINS "Legendre coefficient"
+RETURN concept, related;
 ```

@@ -52,3 +52,80 @@ end
 # Extraction should document parameter regimes:
 # - Chaotic attractor emerges when ρ > 24.74, σ=10, β=8/3
 # - Fixed points at (0,0,0) and (±√(β(ρ-1)), ±√(β(ρ-1)), ρ-1)
+
+## Knowledge Graph Representation
+
+Create knowledge graph entities and relationships using Cypher:
+
+```cypher
+// Create dynamical system entity
+CREATE (system:DynamicalSystem:Entity {
+  name: "Lorenz System",
+  system_type: "continuous",
+  dimension: 3,
+  state_variables: ["x", "y", "z"],
+  description: "Classic chaotic system exhibiting butterfly-like strange attractor"
+})
+
+// Create evolution equations
+CREATE (evolution:EvolutionEquations:Entity {
+  name: "Lorenz Equations",
+  equations: [
+    "dx/dt = σ(y-x)",
+    "dy/dt = x(ρ-z)-y",
+    "dz/dt = xy-βz"
+  ],
+  parameters: ["σ", "ρ", "β"]
+})
+
+// Create parameter regimes
+CREATE (chaotic:ParameterRegime:Entity {
+  name: "Chaotic Regime",
+  parameter_values: {
+    "σ": 10.0,
+    "ρ": 28.0,
+    "β": 8.0/3.0
+  },
+  behavior: "strange attractor"
+})
+
+CREATE (stable:ParameterRegime:Entity {
+  name: "Stable Regime",
+  parameter_values: {
+    "σ": 10.0,
+    "ρ": 20.0,
+    "β": 8.0/3.0
+  },
+  behavior: "stable fixed points"
+})
+
+// Create invariant structures
+CREATE (fixedPoint1:InvariantStructure:Entity {
+  name: "Origin Fixed Point",
+  type: "fixed_point",
+  location: [0, 0, 0],
+  stability: "saddle"
+})
+
+CREATE (fixedPoint2:InvariantStructure:Entity {
+  name: "Non-zero Fixed Points",
+  type: "fixed_point",
+  location_formula: ["±√(β(ρ-1))", "±√(β(ρ-1))", "ρ-1"],
+  stability: "conditionally stable"
+})
+
+CREATE (attractor:InvariantStructure:Entity {
+  name: "Lorenz Strange Attractor",
+  type: "strange_attractor",
+  fractal_dimension: "~2.06",
+  lyapunov_exponents: [0.91, 0, -14.57]
+})
+
+// Create relationships
+CREATE (system)-[:GOVERNED_BY]->(evolution)
+CREATE (system)-[:HAS_REGIME]->(chaotic)
+CREATE (system)-[:HAS_REGIME]->(stable)
+CREATE (system)-[:HAS_STRUCTURE]->(fixedPoint1)
+CREATE (system)-[:HAS_STRUCTURE]->(fixedPoint2)
+CREATE (system)-[:HAS_STRUCTURE]->(attractor)
+CREATE (chaotic)-[:EXHIBITS]->(attractor)
