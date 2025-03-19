@@ -1,88 +1,170 @@
 # Knowledge Extraction System
 
-## Overview
+This repository contains the framework and tools for extracting, organizing, and implementing mathematical knowledge from academic papers, with a focus on numerical methods, algorithms, and their applications to the KitchenSink solver and tunnel pasteurization modeling.
 
-This system provides a comprehensive framework for extracting, organizing, and implementing academic knowledge with special emphasis on mathematical content, algorithms, and numerical methods. The system supports interdisciplinary knowledge integration across numerics, computer vision, control systems, and data science domains.
+## Repository Structure
 
-## Directory Structure
-
-- **1-process/**: Detailed workflow phases for knowledge extraction
-  - `1-document-processing.md`: Converting publications to structured formats
-  - `2-knowledge-graph.md`: Creating and managing knowledge relationships
-  - `3-implementation-repo.md`: Building implementation repositories
-  - `4-integration-pathways.md`: Integrating with existing packages
-  - `5-knowledge-retrieval.md`: Accessing and utilizing extracted knowledge
-  - `cross-domain-integration.md`: Connecting knowledge across different domains
-
-- **2-templates/**: Domain-specific extraction templates
-  - `AbstractAlgebraTemplate.md`: For algebraic structures and operations
-  - `ComputerVisionTemplate.md`: For vision-based techniques and algorithms
-  - `DifferentialGeometryTemplate.md`: For manifolds and geometric structures
-  - `DynamicalSystemsTemplate.md`: For continuous and discrete dynamical systems
-  - `NumericalOptimizationTemplate.md`: For optimization algorithms and methods
-  - `OptimalControlTemplate.md`: For control theory and applications
-
-- **3-examples/**: Complete worked examples
-  - `spectral-method.md`: Spectral method implementation example
-  - `multi-level-ocfc.md`: Multi-level OCFC algorithm extraction
-  - `conservation-properties.md`: Conservation properties verification
-  - `lorenz-system.md`: Complex physical system example
-  - `boundary-value-problem.md`: Boundary value problem with multiple methods
-  - `vision-based-parameter-estimation.md`: Computer vision for CFD parameter extraction
-
-- **4-guidelines/**: Standards and procedures
-  - `nomenclature-system.md`: Terminology standardization
-  - `validation-checklist.md`: Quality verification procedures
-  - `collaborative-workflow.md`: Team coordination guidelines
-  - `mathematics-visualization.md`: Guidelines for visual mathematical content
-  - `julia-documentation-integration.md`: Creating mathematically rigorous Julia documentation
-
-## Core Principles
-
-1. **Mathematical Fidelity**: Preserve all equations, algorithms, and numerical methods in complete form
-2. **Structured Knowledge**: Organize content into interconnected knowledge graphs
-3. **Implementation Focus**: Ensure theoretical concepts have practical implementations
-4. **Integration Ready**: Provide clear pathways to integrate with existing codebases
-5. **Cross-Domain Connectivity**: Enable knowledge transfer between different domains
-
-## Knowledge Organization
-
-The `knowledge-taxonomy.md` file defines the comprehensive structure for organizing knowledge across domains:
-
-- **Numerics**: Differential equations, discretization methods, optimization algorithms, etc.
-- **Computer Vision**: Image processing, feature extraction, physics-informed vision, etc.
-- **Applications**: Control systems, fluid dynamics, parameter estimation, etc.
-- **Cross-Domain Bridges**: Connecting concepts across different domains
-
-Each domain uses a three-tiered knowledge representation to optimize context window usage:
-- **L1**: Core concepts (100-200 words)
-- **L2**: Functional details (500-1000 words)
-- **L3**: Complete knowledge (2000+ words)
+```
+knowledge-extraction/
+├── prompts/                        # Analysis and extraction prompts
+│   ├── master-guides/              # Master guides for analysis workflow
+│   ├── analysis-prompts/           # Specialized analysis prompts
+│   └── implementation-prompts/     # Implementation-focused prompts
+├── cypher/                         # Cypher files for knowledge graph
+│   ├── schema/                     # Schema definitions and constraints
+│   ├── queries/                    # Query templates for knowledge retrieval
+│   ├── templates/                  # Templates for node and relationship creation
+│   ├── entities/                   # Entity node Cypher files
+│   ├── relationships/              # Relationship Cypher files
+│   └── symbols/                    # Symbol node Cypher files
+├── documentation/                  # System documentation
+│   ├── workflow-guides/            # Step-by-step workflow guides
+│   └── server-guides/              # Server utilization documentation
+├── 1-process/                      # Process documentation
+├── 2-templates/                    # Domain-specific templates
+├── 3-examples/                     # Example extractions
+├── 4-guidelines/                   # Style and methodology guidelines
+├── cross_domain_bridges/           # Cross-domain integration
+├── database-setup/                 # Knowledge graph setup files
+└── numerics/                       # Numerical method concepts
+```
 
 ## Getting Started
 
-1. Choose the appropriate template from `2-templates/` for your domain
-2. Follow the extraction process outlined in `1-process/`
-3. Use the examples in `3-examples/` as references
-4. Validate your extraction using the checklist in `4-guidelines/validation-checklist.md`
-5. Organize knowledge according to the taxonomy in `knowledge-taxonomy.md`
-6. Create cross-domain connections as needed using `cross-domain-integration.md` guidelines
+### Using the Knowledge Extraction System
 
-## Key Features
+1. Start with the consolidated master prompt:
+   ```
+   /prompts/master-guides/consolidated-master-prompt.md
+   ```
 
-- Complete preservation of mathematical content
-- Multi-tiered knowledge organization for context optimization
-- Integrated implementation repositories
-- Clear integration pathways
-- Cross-domain knowledge bridges
-- Standardized Julia documentation practices
-- Knowledge chunking for efficient retrieval
+2. Follow the workflow guide:
+   ```
+   /documentation/workflow-guides/paper-analysis-workflow.md
+   ```
 
-## Tools Integration
+3. Learn about nomenclature handling:
+   ```
+   /documentation/workflow-guides/nomenclature-handling-tutorial.md
+   ```
 
-This framework supports integration with various tools:
-- **Atlas Knowledge Graph**: For persistent knowledge storage and relationships
-- **GitHub**: For implementation repositories and version control
-- **Julia Documentation**: Using Documenter.jl and DocStringExtensions.jl
-- **ArXiv Search**: For discovering related academic literature
-- **Advanced LLMs**: For knowledge extraction and synthesis
+### Creating Cypher Files
+
+This system uses direct Cypher file generation instead of the Atlas server. To create knowledge graph nodes and relationships:
+
+1. Use templates from `/cypher/templates/`
+2. Follow schema definitions in `/cypher/schema/`
+3. Save entity and relationship files to appropriate locations
+
+## Core Components
+
+### Prompts
+
+- **Consolidated Master Prompt**: Comprehensive guide for paper analysis
+- **Algorithm Extraction Prompt**: Focused on extracting algorithms with complete mathematical details
+- **Julia Implementation Prompt**: Analysis of SciML-style implementation approaches
+
+### Cypher Templates
+
+- **Entity Node Templates**: For creating various types of knowledge entities
+- **Symbol Node Template**: For creating mathematical symbol entities with context
+- **Relationship Templates**: For creating connections between entities
+- **Query Templates**: For retrieving and analyzing knowledge
+
+### Documentation
+
+- **Workflow Guides**: Step-by-step process guides
+- **Nomenclature Tutorial**: Guide to handling mathematical notation
+- **Server Utilization Guides**: How to effectively use available servers
+
+## Analysis Focus Areas
+
+The system supports these primary analysis types:
+
+1. **Mathematical Symbol Extraction**: Extracting and managing mathematical notation
+2. **Algorithm Extraction**: Extracting and documenting computational procedures
+3. **Method Comparison**: Comparing different numerical approaches
+4. **Implementation Strategy**: Analyzing Julia implementation approaches
+5. **Application Analysis**: Examining domain-specific applications
+6. **Knowledge Graph Construction**: Creating structured knowledge representations
+
+## Key Nomenclature Features
+
+The system includes enhanced support for mathematical notation handling:
+
+1. **Symbol Preservation**: Maintains original notation used in papers
+2. **Context-Aware Symbols**: Documents symbol meanings in specific contexts
+3. **Symbol Registry**: Creates comprehensive notation reference for papers
+4. **Conflict Resolution**: Manages notation conflicts between papers and domains
+5. **Cross-Domain Mapping**: Links mathematical notation to engineering interpretations
+
+## Integration with Related Repositories
+
+This knowledge extraction system works with these related repositories:
+
+1. **extracted-content-markdown**
+   - General extracted content
+   - Symbol registries
+   - Cross-domain mappings
+   - Location: `/projects/git/extracted-content-markdown/`
+
+2. **extracted-numerical-methods**
+   - Numerical method implementations
+   - Algorithm descriptions
+   - Location: `/projects/git/extracted-numerical-methods/`
+
+3. **extracted-tunnel**
+   - Tunnel pasteurization content
+   - Applied engineering models
+   - Location: `/projects/git/extracted-tunnel/`
+
+## Usage Examples
+
+### Basic Paper Analysis
+
+```
+1. Load the consolidated master prompt
+2. Upload the PDF and process with OCR
+3. Save the complete extraction to extracted-content-markdown
+4. Extract mathematical symbols and create a symbol registry
+5. Extract algorithms and methods
+6. Generate Cypher files for knowledge graph integration
+7. Create implementation strategy documents
+8. Integrate with existing knowledge
+```
+
+### Cross-Domain Integration
+
+```
+1. Identify mathematical notation with engineering interpretations
+2. Create domain-specific interpretations
+3. Generate cross-domain mapping documents
+4. Create implementation guidelines for applied contexts
+```
+
+## Best Practices
+
+- **Symbol Preservation**: Always maintain original mathematical notation
+- **Structured Storage**: Save all extracted content to appropriate repositories
+- **Context Awareness**: Document the specific context for each symbol
+- **Conflict Documentation**: Explicitly document notation conflicts
+- **Complete Preservation**: Maintain all mathematical details in extractions
+- **Implementation Pathways**: Always document integration with KitchenSink
+- **Knowledge Linkage**: Create explicit relationships between extracted knowledge
+
+## Projects & Applications
+
+The extracted knowledge supports two primary projects:
+
+1. **KitchenSink**: A novel multi-level orthogonal collocation solver in Julia
+2. **MSc Thesis**: Modeling tunnel pasteurization of beer using numerical methods
+
+## Contributing
+
+When contributing to this repository:
+
+1. Follow the file structure conventions
+2. Use the provided templates for consistency
+3. Document all additions and changes
+4. Maintain cross-references between related content
+5. Preserve original mathematical notation while creating meaning-based links

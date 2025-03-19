@@ -1,217 +1,293 @@
-# Knowledge Extraction System: Master Guide
+# Knowledge Extraction System Master Guide
 
-## Overview
+This master guide provides a comprehensive overview of the knowledge extraction system, designed to extract mathematical content from academic papers and organize it into a structured format, with direct Cypher file generation replacing the Atlas server.
 
-This system provides a comprehensive framework for extracting, structuring, and integrating academic knowledge with special emphasis on preserving mathematical content in its complete form. The extraction workflow creates a structured knowledge graph in Atlas, implementation repositories in GitHub, and integration pathways for existing Julia packages.
+## System Purpose
 
-## System Components
+This system serves two interrelated projects:
 
-1. **Process Workflows**
-   - [Document Processing](./1-process/1-document-processing.md)
-   - [Knowledge Graph Construction](./1-process/2-knowledge-graph.md)
-   - [Implementation Repository](./1-process/3-implementation-repo.md)
-   - [Integration Pathways](./1-process/4-integration-pathways.md)
-   - [Knowledge Retrieval](./1-process/5-knowledge-retrieval.md)
+1. **KitchenSink**: A novel multi-level orthogonal collocation solver in Julia
+2. **MSc Thesis**: Modeling tunnel pasteurization of beer using numerical methods
 
-2. **Domain Templates**
-   - [Abstract Algebra](./2-templates/AbstractAlgebraTemplate.md)
-   - [Differential Geometry](./2-templates/DifferentialGeometryTemplate.md)
-   - [Dynamical Systems](./2-templates/DynamicalSystemsTemplate.md)
-   - [Numerical Optimization](./2-templates/NumericalOptimizationTemplate.md)
-   - [Computer Vision](./2-templates/ComputerVisionTemplate.md)
-   - [Optimal Control](./2-templates/OptimalControlTemplate.md)
+The extraction system preserves mathematical knowledge with complete fidelity while organizing it for different audiences and applications.
 
-3. **Working Examples**
-   - [Spectral Method Implementation](./3-examples/spectral-method.md)
-   - [Multi-Level OCFC Algorithm](./3-examples/multi-level-ocfc.md)
-   - [Conservation Properties](./3-examples/conservation-properties.md)
-   - [Lorenz System](./3-examples/lorenz-system.md)
-   - [Boundary Value Problem](./3-examples/boundary-value-problem.md)
-   - [CV-Based Parameter Estimation](./3-examples/cv-parameter-estimation.md)
+## Core Workflows
 
-4. **Guidelines**
-   - [Nomenclature System](./4-guidelines/nomenclature-system.md)
-   - [Validation Checklist](./4-guidelines/validation-checklist.md)
-   - [Collaborative Workflow](./4-guidelines/collaborative-workflow.md)
-   - [Mathematics Visualization](./4-guidelines/mathematics-visualization.md)
-   - [Cross-Domain Knowledge Organization](./4-guidelines/cross-domain-organization.md)
+### Paper Analysis Workflow
 
-## Knowledge Domain Structure
+#### 1. Initial Processing
+- Convert PDF to markdown with OCR for text, Latin, Greek, and mathematical notation
+- Preserve complete equations and mathematical formulations
+- Save full extraction to `/projects/git/extracted-content-markdown/papers/`
 
-The knowledge extraction system is organized into interconnected domains that support advanced applications in scientific computing, numerical methods, and control systems:
+#### 2. Knowledge Extraction
+- Extract key mathematical concepts with proper LaTeX
+- Document algorithms with complete mathematical details
+- Identify implementation considerations
+- Create Cypher files for knowledge graph integration
 
-### Numerics
-- **Differential Equations**: ODEs, PDEs, DAEs, stochastic DEs
-- **Discretization Methods**: Finite difference, finite element, spectral methods, collocation
-- **Optimization Algorithms**: Unconstrained, constrained, global, stochastic
-- **Root Finding Algorithms**: Bisection, Newton methods, quasi-Newton methods
-- **Linear Algebra**: Direct solvers, iterative solvers, eigenvalue problems
-- **Computational Acceleration**: GPU computing, parallel computing, vectorization
-- **Fundamental Theory**: Numerical stability, convergence analysis, error estimation
+#### 3. Implementation Analysis
+- Design Julia type hierarchies following SciML conventions
+- Outline function interfaces with type specifications
+- Document performance considerations
+- Develop testing strategies
+- Create implementation notes in `/projects/git/extracted-numerical-methods/implementations/`
 
-### Computer Vision
-- **Image Processing**: Filtering, edge detection, segmentation, registration
-- **Feature Extraction**: Keypoint detection, descriptors, tracking, optical flow
-- **3D Reconstruction**: Structure from motion, stereo vision, volumetric reconstruction
-- **Deep Learning CV**: CNNs, semantic segmentation, generative models
-- **Physics-Informed Vision**: Physics-constrained tracking, material property estimation
-- **Inverse Problem Imaging**: Tomographic reconstruction, computational imaging
+#### 4. Application Integration
+- Analyze relevance to pasteurization modeling
+- Identify integration pathways for KitchenSink
+- Document practical applications
+- Create application materials in `/projects/git/extracted-tunnel/`
 
-### Applications
-- **Control Systems**: Optimal control, model predictive control, dynamic optimization
-- **Fluid Dynamics**: CFD fundamentals, aerodynamics, multiphase flows
-- **Parameter Estimation**: PDE parameter identification, Kalman filtering, Bayesian methods
-- **Multiphysics Modeling**: Fluid-structure interaction, thermal-mechanical coupling
-- **Data Science**: Surrogate modeling, system identification, ML for PDE solving
+#### 5. Cross-Paper Integration
+- Identify relationships with existing knowledge
+- Create comparative analyses
+- Generate synthesis documents
+- Update method comparisons
 
-## Critical Requirements for Mathematical Content
+## Improved Prompt System
 
-**ALL mathematical content must be preserved in its complete form:**
+The updated system uses consolidated prompts to streamline the analysis process:
 
-1. **Equations and Formulas**
-   - Every equation must be extracted in full LaTeX format
-   - All variables, parameters, and symbols must be preserved with original notation
-   - Both inline and display equations must be captured
-   - Special formatting (e.g., bold, script, etc.) must be maintained
+### 1. Master Guides
+- `consolidated-master-prompt.md`: Complete framework for paper analysis
+- Includes all aspects of workflow in a single, comprehensive guide
 
-2. **Algorithms and Numerical Methods**
-   - All algorithms must be preserved in complete form, including:
-     * Initialization steps
-     * Iteration procedures
-     * Convergence criteria
-     * Edge case handling
-   - Any pseudocode must be converted to structured, executable format
-   - Complexity analysis and performance characteristics must be documented
+### 2. Analysis Prompts
+- `consolidated-algorithm-extraction-prompt.md`: Focused extraction of algorithms
+- Preserves complete mathematical details with no summarization
 
-3. **Derivations and Proofs**
-   - Mathematical derivations must be preserved step by step
-   - All assumptions and initial conditions must be documented
-   - Special cases and limitations must be noted
-   - References to other established results must be maintained
+### 3. Implementation Prompts
+- `julia-sciml-implementation-prompt.md`: SciML-style Julia implementation
 
-## Cross-Domain Knowledge Organization
+## Cypher Integration (Replacing Atlas)
 
-For complex interdisciplinary applications like CV-based parameter estimation in multiphysics:
+Instead of using the Atlas server, the system now uses direct Cypher file generation:
 
-1. **Use Tiered Knowledge Representation**:
-   - **L1**: Core concepts (100-200 words) - Essential definitions and connections
-   - **L2**: Implementation frameworks (500-1000 words) - Key steps and mathematics
-   - **L3**: Complete knowledge (2000+ words) - Full theoretical and implementation details
+### 1. Schema Definition
+- Entity types defined in `/cypher/schema/entity-types.cypher`
+- Relationship types defined in `/cypher/schema/relationship-types.cypher`
 
-2. **Create Explicit Knowledge Bridges**:
-   - Document transformations between visual features and physical parameters
-   - Specify how computer vision outputs become inputs to numerical simulations
-   - Formalize the mathematical mappings between domains
+### 2. Templates
+- Algorithm node template in `/cypher/templates/algorithm-node.cypher`
+- Method relationship template in `/cypher/templates/method-relationship.cypher`
 
-3. **Maintain Domain-Specific Integrity**:
-   - Preserve rigorous mathematical formulations within each domain
-   - Create clear interfaces between domains with well-defined input/output structures
-   - Document assumptions made when bridging domains
+### 3. Query Patterns
+- Standard queries for algorithm extraction in `/cypher/queries/algorithm-extraction.cypher`
+- Method comparison queries in `/cypher/queries/method-comparison.cypher`
 
-## Equation Notation Standards
+### 4. Entity Creation Process
+1. Extract knowledge from paper
+2. Load appropriate template
+3. Fill template with entity details
+4. Save to `/cypher/entities/[EntityName].cypher`
 
-For mathematical equations in extraction:
+### 5. Relationship Creation Process
+1. Identify entity relationships
+2. Load relationship template
+3. Fill template with relationship details
+4. Save to `/cypher/relationships/[RelationshipName].cypher`
 
-1. **Always preserve original notation** in the equation itself to maintain fidelity to the source
-2. **Include explicit notation mapping** that links to standardized nomenclature
-3. **Format mapping as**:
-   ```json
-   {
-     "paper_notation": {
-       "symbol": "σ",
-       "meaning": "coefficient decay rate",
-       "paper_id": "Liu2018"
-     },
-     "canonical_notation": {
-       "symbol": "σ",
-       "canonical_name": "Decay Rate Parameter",
-       "domain": "Approximation Theory"
-     }
-   }
-   ```
+## Knowledge Representation
 
-## Julia Implementation Standards
+The system uses a tiered approach to knowledge representation:
 
-The implementation code should follow these standards:
+### 1. L1 Tier (Core Knowledge)
+- Brief descriptions (100-200 words)
+- Key equations and concepts
+- Primary relationships
+- Kept in context during analysis
 
-1. **Use Julia in SciML style** with comprehensive docstrings
-2. **Include complete mathematical foundations** in documentation
-3. **Implement robust test suites** that verify mathematical properties
-4. **Structure code to match the mathematical formulation** directly
-5. **Document numerical considerations** like stability and convergence
-6. **Use type parameters to enhance generality** and performance
+### 2. L2 Tier (Detailed Knowledge)
+- Extended explanations (500-1000 words)
+- Complete mathematical derivations
+- Detailed algorithm steps
+- Loaded as needed during analysis
 
-Example Julia function with proper documentation:
+### 3. L3 Tier (Complete Knowledge)
+- Comprehensive documentation (2000+ words)
+- Full algorithm details with all cases
+- Complete implementation considerations
+- Always stored in file system, referenced via paths
 
-```julia
-"""
-    analyze_coefficient_decay(coefficients::AbstractVector{T}, 
-                              basis_type::Symbol=:legendre) where T<:AbstractFloat
+## Repository Structure
 
-Analyze the decay rate of expansion coefficients in a given basis.
+The knowledge extraction system spans multiple repositories:
 
-# Mathematical Foundation
-The decay rate parameter σ characterizes how quickly series coefficients decrease,
-following the model:
+### 1. knowledge-extraction
+- Core framework and tools
+- Prompts and templates
+- Cypher files and queries
+- Documentation and guides
 
-```math
-|a_i| \\approx c \\cdot 10^{-\\sigma i}
+### 2. extracted-content-markdown
+- Complete paper extractions
+- Synthesis documents
+- Cross-paper analyses
+- General mathematical content
+
+### 3. extracted-numerical-methods
+- Algorithm documentation
+- Method descriptions
+- Implementation strategies
+- Testing frameworks
+
+### 4. extracted-tunnel
+- Pasteurization models
+- Heat transfer applications
+- Container modeling
+- Process optimizations
+
+## Implementation Guidelines
+
+### Julia SciML Implementation Standards
+
+All Julia implementations should follow these guidelines:
+
+#### 1. Type System Design
+- Clear abstract type hierarchies
+- Parametric types with constraints
+- Type stability across all code paths
+- Immutable structs where appropriate
+
+#### 2. Function Interfaces
+- Both in-place (!) and out-of-place versions
+- Multiple dispatch for different types
+- Clear parameter documentation
+- Comprehensive docstrings with LaTeX
+
+#### 3. Documentation
+- Mathematical foundations in docstrings
+- Paper references with equation numbers
+- Usage examples
+- Performance characteristics
+
+#### 4. Testing
+- Analytical solutions when available
+- Convergence rate verification
+- Edge case testing
+- Parameter sensitivity analysis
+
+## Application Integration
+
+### KitchenSink Integration
+
+Focus on these aspects when analyzing integration with KitchenSink:
+
+#### 1. Orthogonal Collocation Compatibility
+- Relationship to existing collocation framework
+- Integration with basis function system
+- Adaptation for multi-level approach
+
+#### 2. Moving Boundary Handling
+- Phase change modeling
+- Interface tracking
+- Mesh adaptation
+
+#### 3. Conservation Properties
+- Preservation of physical properties
+- Error control
+- Stability analysis
+
+### Pasteurization Applications
+
+Focus on these aspects when analyzing tunnel pasteurization:
+
+#### 1. Heat Transfer Modeling
+- Container thermal properties
+- Spray and convection effects
+- Temperature-dependent parameters
+
+#### 2. Process Optimization
+- Pasteurization unit calculation
+- Energy efficiency
+- Time-temperature profiles
+
+## Documentation Standards
+
+All extracted knowledge should be documented following these standards:
+
+### 1. Mathematical Content
+- Use LaTeX for all equations
+- Preserve original notation where possible
+- Document variable meanings
+- Include units for physical quantities
+
+### 2. Algorithm Documentation
+- Structured pseudocode
+- All preconditions and postconditions
+- Complexity analysis
+- Implementation considerations
+
+### 3. Method Documentation
+- Core mathematical foundation
+- Relationship to other methods
+- Convergence properties
+- Application domains
+
+### 4. Implementation Documentation
+- Type hierarchies
+- Function signatures
+- Performance considerations
+- Testing strategies
+
+## Server Utilization
+
+Use these servers efficiently during the extraction process:
+
+### 1. pdf-to-markdown
+- Convert PDFs with OCR support
+- Preserve mathematical notation
+- Save complete extractions immediately
+
+### 2. sequential-thinking
+- Complex mathematical analysis
+- Algorithm complexity assessment
+- Convergence proofs
+- Method comparisons
+
+### 3. File System Operations
+- read_file for accessing content
+- write_file for saving extractions
+- Consistent file naming conventions
+- Appropriate repository selection
+
+### 4. Additional Servers (When Needed)
+- juliadoc for SciML reference
+- mcp-scholarly for academic context
+- webresearch for application domains
+
+## Best Practices
+
+### Token Efficiency
+- Save complete extractions immediately
+- Reference files instead of including content
+- Load specific sections as needed
+- Use templates for consistency
+
+### Context Window Management
+- Maintain L1 knowledge in context
+- Load L2 knowledge when analyzing specific aspects
+- Reference L3 knowledge via file paths
+- Release context by saving intermediate results
+
+### Cross-Domain Integration
+- Create explicit relationships between domains
+- Document parameter mappings
+- Establish consistent nomenclature
+- Develop synthesis documents
+
+## Example Workflow
+
+```
+1. Load consolidated master prompt
+2. Process paper with OCR and save complete extraction
+3. Extract algorithms and mathematical concepts
+4. Create implementation strategy document
+5. Generate Cypher files for knowledge graph
+6. Analyze pasteurization applications
+7. Create cross-references with existing knowledge
+8. Generate synthesis documents
 ```
 
-where `c` is a constant and `σ` is the decay rate parameter.
-
-# Arguments
-- `coefficients::AbstractVector{T}`: Vector of expansion coefficients
-- `basis_type::Symbol`: Type of basis functions (:legendre, :chebyshev, :fourier)
-
-# Returns
-- `decay_rate::Float64`: Estimated decay rate parameter σ
-- `quality_of_fit::Float64`: R² value for the exponential fit
-- `confidence_interval::Tuple{Float64,Float64}`: 95% confidence interval for σ
-
-# Examples
-```julia
-coeffs = [1.0, 1e-1, 1e-2, 1e-3, 1e-4]
-decay_rate, fit_quality, ci = analyze_coefficient_decay(coeffs, :legendre)
-```
-
-# References
-- Liu et al. (2018). "Coefficient decay analysis for spectral methods", Journal of Scientific Computing
-"""
-function analyze_coefficient_decay(coefficients::AbstractVector{T}, 
-                                   basis_type::Symbol=:legendre) where T<:AbstractFloat
-    # Implementation
-    # ...
-    
-    return decay_rate, quality_of_fit, confidence_interval
-end
-```
-
-## Available Tools and Functions
-
-- **Document Processing**: `pdf-to-markdown`, `docx-to-markdown`, etc.
-- **Knowledge Graph**: `create_entities`, `create_relations`, `search_nodes`, etc.
-- **GitHub Repository**: `create_repository`, `push_files`, etc.
-- **Atlas Project**: `project_create`, `project_note_add`, etc.
-- **File System**: `read_file`, `write_file`, `create_directory`, etc.
-- **Search Tools**: `search-arxiv`, `search-google-scholar` for expanding knowledge sources
-- **Sequential Thinking**: For complex reasoning about interdisciplinary knowledge
-
-## Workflow Overview
-
-This system uses a five-phase approach to efficiently process academic knowledge:
-
-1. **[Initial Document Processing](./1-process/1-document-processing.md)**: Convert publications to structured formats with focused summaries
-2. **[Knowledge Graph Construction](./1-process/2-knowledge-graph.md)**: Store conceptual framework and relationships in Atlas
-3. **[Mathematical Implementation Repository](./1-process/3-implementation-repo.md)**: Maintain code, examples, and integration guides
-4. **[Integration Pathway Creation](./1-process/4-integration-pathways.md)**: Connect extracted knowledge to existing systems
-5. **[Knowledge Retrieval System](./1-process/5-knowledge-retrieval.md)**: Efficiently query and retrieve targeted information
-
-## Getting Started
-
-1. Choose the appropriate template from `2-templates/` for your domain
-2. Follow the extraction process outlined in `1-process/`
-3. Use the examples in `3-examples/` as references
-4. Validate your extraction using the checklist in `4-guidelines/validation-checklist.md`
-
-See the [legacy comprehensive guide](./_archive_Comprehensive_Academic_Knowledge_Extra.md) for additional historical details.
+This master guide provides a comprehensive framework for extracting, organizing, and implementing mathematical knowledge from academic papers, with a focus on numerical methods and their applications to KitchenSink and tunnel pasteurization.
