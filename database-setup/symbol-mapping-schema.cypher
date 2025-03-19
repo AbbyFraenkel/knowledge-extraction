@@ -117,11 +117,9 @@ CREATE (example_symbol:Symbol {
 })
 
 // Create Indexes for Efficient Querying
-CREATE INDEX ON :Symbol(original_notation)
-CREATE INDEX ON :Symbol(domains)
-
-// Additional index for search optimization
-CREATE INDEX ON :Symbol(alternative_notations)
+CREATE INDEX symbol_original_notation_idx FOR (s:Symbol) ON (s.original_notation)
+CREATE INDEX symbol_domains_idx FOR (s:Symbol) ON (s.domains)
+CREATE INDEX symbol_alt_notations_idx FOR (s:Symbol) ON (s.alternative_notations)
 
 // Create relationships for symbol conflict resolution
 MATCH (s1:Symbol), (s2:Symbol)
@@ -177,13 +175,8 @@ CREATE
 });
 
 // Add constraints to ensure data integrity
-CREATE CONSTRAINT symbol_notation_domain_unique IF NOT EXISTS
-FOR (s:Symbol)
-REQUIRE (s.original_notation, s.domain) IS UNIQUE;
-
-CREATE CONSTRAINT publication_doi_unique IF NOT EXISTS
-FOR (p:Publication)
-REQUIRE p.doi IS UNIQUE;
+CREATE CONSTRAINT symbol_unique_constraint FOR (s:Symbol) REQUIRE (s.original_notation, s.domain) IS UNIQUE;
+CREATE CONSTRAINT publication_doi_constraint FOR (p:Publication) REQUIRE p.doi IS UNIQUE;
 
 // Add example relationships for the existing symbol
 MATCH (s:Symbol {original_notation: 'α'})
