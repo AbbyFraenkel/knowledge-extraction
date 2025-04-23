@@ -93,101 +93,307 @@ This consolidated guide provides a comprehensive framework for extracting knowle
 
 ## Mathematical Nomenclature Handling
 
-When extracting knowledge from academic papers, pay special attention to mathematical notation and symbology:
+This section provides essential guidance for handling mathematical notation and symbology, with special emphasis on preserving original notation while enabling cross-domain mapping between pure mathematics and applications in KitchenSink and pasteurization modeling.
 
-### Symbol Extraction and Documentation
+### Core Principles for Notation Handling
 
-1. **Identify All Mathematical Symbols**
-   - Extract every mathematical symbol used in the paper
-   - Document the LaTeX representation for each symbol
-   - Note where each symbol first appears (section, equation, page)
-   - Record the precise meaning of each symbol in its context
+1. **Absolute Notation Preservation**
+   - **Preserve Exactly**: Always maintain the original mathematical notation exactly as it appears in the paper
+   - **Never Standardize**: Do not modify symbols for consistency with other papers or standard conventions
+   - **Capture Context**: Record the precise contextual meaning for each symbol
+   - **Document Precisely**: Use LaTeX, Unicode, and visual representations to ensure accurate reproduction
 
-2. **Preserve Original Notation**
-   - Always maintain the original symbols used in the paper
-   - Never substitute or standardize notation during extraction
-   - Preserve the exact mathematical formulation with original variables
-   - Document any non-standard or unusual notation explicitly
+2. **Context-Specific Understanding**
+   - **Contextual Boundaries**: Document where each symbol's meaning applies (global, section-specific, equation-specific)
+   - **Meaning Evolution**: Track if a symbol's meaning evolves or is refined throughout the paper
+   - **Domain Context**: Note whether the symbol is used in pure mathematics, numerical analysis, or application contexts
+   - **Author Intent**: Capture the author's intended meaning, not just the symbol itself
 
-3. **Handle Multiple Meanings**
-   - Note when the same symbol is used with different meanings
-   - Document the specific context for each usage
-   - Create clear distinctions between different interpretations
-   - Record any author comments about notation choices
+3. **Meaning-Focused Integration**
+   - **Connect by Meaning**: Integrate symbols across papers based on their meaning, not their notation
+   - **Preserve Differences**: Maintain different notational choices for the same concept across papers
+   - **Track Lineage**: Document how symbol usage relates to established conventions and prior work
+   - **Cross-Reference Carefully**: When referring between papers, explicitly note notational differences
 
-### Symbol Entity Creation
+4. **Complete Documentation**
+   - **Full Properties**: Document all properties (dimensionality, units, constraints, etc.)
+   - **Related Equations**: Record key equations where the symbol appears
+   - **Usage Pattern**: Note how extensively the symbol is used (central vs. peripheral)
+   - **Visual Context**: When possible, include visual excerpts showing the symbol in context
 
-When creating Symbol entities in the knowledge graph, follow this pattern:
+### Symbol Extraction Process
+
+Follow this detailed process for extracting and documenting mathematical symbols:
+
+1. **Initial Symbol Identification**
+   - Scan the entire paper systematically, starting with abstract and introduction
+   - Pay special attention to definition sections, equation blocks, and nomenclature lists
+   - Capture each unique symbol along with its first appearance location
+   - Record the exact visual form using screenshots if complex notation is used
+
+2. **Symbol Property Documentation**
+   - For each symbol, document:
+     - **Original Notation**: Exact form as it appears (e.g., α, ∇Φ, C_p)
+     - **LaTeX Representation**: Precise LaTeX code (e.g., `\alpha`, `\nabla\Phi`, `C_p`)
+     - **Unicode Representation**: Unicode code points when applicable
+     - **Context**: Specific mathematical or application context
+     - **Meaning**: Precise definition in the paper's own terms
+     - **First Appearance**: Section, page, and equation number
+     - **Role**: Function of the symbol (variable, parameter, operator, etc.)
+     - **Dimensionality**: Scalar, vector, matrix, tensor, etc.
+     - **Units**: Physical units if applicable (SI preferred)
+     - **Constraints**: Any mathematical constraints or bounds
+     - **Related Symbols**: Other symbols with mathematical relationships
+
+3. **Context Grouping**
+   - Group symbols by their context of use within the paper
+   - Create context-specific symbol sets for:
+     - Core mathematical formulation
+     - Numerical discretization
+     - Error analysis
+     - Implementation considerations
+     - Application domains
+
+4. **Meaning Validation**
+   - Verify each symbol's meaning against all its occurrences in the paper
+   - Check for any inconsistencies in usage
+   - Identify if meanings evolve or are refined throughout the paper
+   - Validate that your interpretation matches the author's intent
+
+### Symbol Type-Specific Guidance
+
+#### 1. Variables and Parameters
+- Document the range of values or constraints (e.g., "positive real number", "integer in [1,N]")
+- Note whether the symbol represents a known or unknown quantity
+- Specify whether the value is constant or varies within the problem domain
+- For KitchenSink: Note computational role (e.g., "Discretization parameter", "Convergence indicator")
+
+#### 2. Operators and Functions
+- Document the precise input and output spaces
+- Note any special properties (linearity, continuity, etc.)
+- Record the explicit definition or formula provided in the paper
+- For KitchenSink: Document implementation approach for operator discretization
+
+#### 3. Indices and Subscripts
+- Document the range and meaning of each index
+- Note any special indexing conventions
+- Record zero-based vs. one-based indexing choices
+- For KitchenSink: Map to Julia indexing conventions (one-based)
+
+#### 4. Sets and Spaces
+- Document the elements contained in the set
+- Note any topological or algebraic properties
+- Record any notation for special subsets
+- For KitchenSink: Map to concrete data structures in implementation
+
+#### 5. Special Symbols
+- Document Greek letters with their specific meanings
+- Note symbols with special typographical features (hats, bars, tildes)
+- Record any symbols defined by the authors specifically for the paper
+- For KitchenSink: Document Julia-compatible ASCII representations
+
+### Symbol Conflict Handling
+
+When the same symbol is used with different meanings, follow these procedures:
+
+1. **Conflict Identification**
+   - **Same Paper Conflicts**: Note when the same symbol has different meanings within one paper
+   - **Cross-Paper Conflicts**: Document conflicts with previously extracted symbols
+   - **Convention Conflicts**: Identify deviations from standard conventions in the field
+   - **Implementation Conflicts**: Note when symbols clash with programming language keywords
+
+2. **Conflict Documentation**
+   - For each conflict, document:
+     - The conflicting symbols and their contexts
+     - The different meanings assigned to each
+     - Where each meaning is used in the paper
+     - Any author comments about notation choices
+     - Potential for confusion across domains
+
+3. **Resolution Approaches**
+   - **Context Disambiguation**: Use context to determine the intended meaning
+   - **Explicit Qualification**: Add qualifiers when referencing conflicting symbols (e.g., "α_thermal" vs "α_spectral")
+   - **Domain Boundary**: Keep meanings separate based on domain boundaries
+   - **Canonical Reference**: Designate a preferred form for cross-domain references
+   - **Implementation Mapping**: Create explicit mapping to implementation variables
+
+4. **Resolution Documentation**
+   - Create explicit Cypher relationships documenting conflicts
+   - Document resolution strategies in the Symbol Registry
+   - Include clear examples of proper cross-referencing
+   - Update all related documentation with conflict notes
+
+### Cross-Domain Symbol Mapping
+
+For mapping between mathematical formulations and engineering applications:
+
+1. **Domain-Specific Interpretations**
+   - Document how pure mathematical symbols map to physical quantities
+   - Record standard units and dimensions in engineering contexts
+   - Note any domain-specific conventions or expectations
+   - Create explicit Cypher relationships for domain interpretations
+
+2. **KitchenSink-Specific Mappings**
+   - Map mathematical symbols to Julia variable names
+   - Document type relationships (e.g., symbol → Float64, symbol → AbstractArray)
+   - Specify how symbols relate to KitchenSink's architecture components
+   - Create direct links to implementation code when available
+
+3. **Pasteurization-Specific Mappings**
+   - Map mathematical parameters to physical beer and container properties
+   - Document relationships to pasteurization process variables
+   - Specify units relevant to brewing industry standards
+   - Link to experimental validation data when available
+
+4. **Cross-Domain Translation**
+   - Create explicit mapping tables between domains
+   - Document any conversion factors or transformations
+   - Specify mapping limitations or approximations
+   - Provide clear examples of translation between domains
+
+### Symbol Entity Creation in Knowledge Graph
+
+When creating Symbol entities, follow this pattern:
 
 ```cypher
+// Basic Symbol creation
 CREATE (sym:Symbol {
-  name: "σ",  // The symbol itself
-  context: "Spectral approximation",  // The specific context
-  latex: "\\sigma",  // LaTeX representation
-  meaning: "Decay rate parameter",  // Precise meaning
-  paperSources: ["Smith2022"]  // Source reference
+  name: "α",  // Symbol exactly as it appears
+  originalNotation: "α",  // Original form
+  latexRepresentation: "\\alpha",  // LaTeX code
+  unicodeRepresentation: "U+03B1",  // Unicode (if applicable)
+  meaning: "Thermal diffusivity",  // Precise meaning
+  context: "Heat transfer equation",  // Specific context
+  scope: "Global",  // Scope of applicability
+  
+  // Optional properties - include all that apply
+  dimensionality: "Scalar",  // Scalar, vector, matrix, etc.
+  units: "m²/s",  // Physical units
+  constraints: "Positive real number",  // Constraints
+  firstAppearance: "Section 3.2, Equation 7",  // First appearance
+  paperSources: ["Smith2022"],  // Source references
+  symbolType: "Parameter",  // Parameter, variable, operator, etc.
+  
+  // Domain-specific properties (when applicable)
+  kitchenSinkImplementation: "alpha",  // Implementation variable name
+  engineeringInterpretation: "Thermal diffusivity of container wall",  // Engineering meaning
+  experimentalDetermination: "Measured using transient heat transfer tests"  // How determined
 })
 
-// Connect to its source paper
+// Connect to paper
 MATCH (paper:Paper {id: "Smith2022"})
 CREATE (sym)-[:APPEARS_IN {
   section: "Section 3.2",
   firstAppearance: "Equation 7",
-  role: "Parameter"
+  role: "Parameter",
+  originalContext: "... where α represents the thermal diffusivity ..."
 }]->(paper)
+
+// Connect to concept
+MATCH (concept:MathematicalConcept {name: "HeatTransfer"})
+CREATE (sym)-[:REPRESENTS {
+  context: "Heat conduction in solids"
+}]->(concept)
+
+// Domain-specific interpretation
+MATCH (domain:ApplicationDomain {name: "ThermalEngineering"})
+CREATE (sym)-[:HAS_INTERPRETATION_IN {
+  meaning: "Thermal diffusivity",
+  standardUsage: "Material property in heat transfer calculations",
+  units: "m²/s in SI units"
+}]->(domain)
 ```
 
-### Symbol Conflict Resolution
+### Complete Nomenclature Example: Orthogonal Collocation
 
-When encountering symbols with conflicting meanings across papers:
+Here's a comprehensive example for orthogonal collocation methods:
 
-1. **Preserve Both Representations**
-   - Create separate Symbol entities for each usage context
-   - Maintain the original notation in each context
-   - Document the relationship between conflicting symbols
+**Paper Context**: "Spectral Orthogonal Collocation Methods for PDEs with Moving Boundaries"
 
-2. **Create Explicit Relationships**
-   - Connect conflicting symbols with CONFLICTS_WITH relationships
-   - Document resolution strategies for cross-reference
-   - Specify canonical choices when appropriate
+```
+Symbol: Lᵏₙ(x)
+LaTeX: L^k_n(x)
+Context: Polynomial basis
+Meaning: Normalized Legendre polynomial of degree n with k derivatives
+Role: Basis function
+Properties: Orthogonal polynomial satisfying specific differential equation
+First appearance: Section 2.1, Equation (3)
+Usage: Used in spectral approximation of solution
 
-3. **Example Resolution**:
-   ```cypher
-   // Two different meanings for the same symbol
-   MATCH (sym1:Symbol {name: "λ", context: "Eigenvalue analysis"})
-   MATCH (sym2:Symbol {name: "λ", context: "Wavelength calculation"})
-   CREATE (sym1)-[:CONFLICTS_WITH {
-     resolutionStrategy: "Context-dependent interpretation",
-     canonicalChoice: "λ for eigenvalues, λ_w for wavelength in cross-domain references",
-     resolutionNotes: "Following standard convention in applied mathematics"
-   }]->(sym2)
-   ```
+Symbol: ξⱼ
+LaTeX: \xi_j
+Context: Collocation points
+Meaning: j-th Gauss-Legendre quadrature point
+Role: Discretization point
+Properties: Roots of Legendre polynomial Lₙ(x)
+First appearance: Section 2.2, Equation (7)
+Usage: Points where differential equation is enforced exactly
 
-### Cross-Domain Symbol Mapping
+Symbol: s(t)
+LaTeX: s(t)
+Context: Moving boundary
+Meaning: Position of moving boundary at time t
+Role: Unknown function
+Properties: Continuous function of time
+First appearance: Section 3.1, Equation (12)
+Usage: Primary unknown in Stefan problem
 
-When creating mappings between mathematical and engineering domains:
+Symbol: α
+LaTeX: \alpha
+Context: Thermal properties
+Meaning: Thermal diffusivity of material
+Role: Physical parameter
+Properties: Positive real constant
+Units: m²/s
+First appearance: Section 4.1, Equation (18)
+Usage: Appears in heat equation
 
-1. **Document Domain-Specific Interpretations**
-   - Record how symbols are interpreted in specific application domains
-   - Note any standard units or dimensions in each domain
-   - Document domain-specific conventions and expectations
+Symbol: ε
+LaTeX: \varepsilon
+Context: Error analysis
+Meaning: Truncation error
+Role: Error estimate
+Properties: Function of discretization parameter
+First appearance: Section 5.2, Equation (25)
+Usage: Used in convergence analysis
+```
 
-2. **Create Interpretation Relationships**
-   - Connect symbols to their domain-specific interpretations
-   - Maintain the mathematical meaning while adding engineering context
-   - Document any transformations or unit conversions
+**Domain mapping for pasteurization application**:
+- α in heat transfer → Thermal diffusivity of beer or container
+- s(t) in moving boundary → Interface between pasteurized/unpasteurized zones
+- ε in error analysis → Temperature prediction uncertainty
 
-3. **Example Domain Mapping**:
-   ```cypher
-   // Connect mathematical symbol to engineering interpretation
-   MATCH (sym:Symbol {name: "α", context: "Heat equation"})
-   MATCH (domain:ApplicationDomain {name: "Thermal Engineering"})
-   CREATE (sym)-[:HAS_INTERPRETATION_IN {
-     meaning: "Thermal diffusivity",
-     standardUsage: "Material property in heat transfer calculations",
-     units: "m²/s in SI units"
-   }]->(domain)
-   ```
+**KitchenSink implementation mapping**:
+- Lᵏₙ(x) → OrthogonalPolynomial{LegendreType}
+- ξⱼ → collocation_points
+- s(t) → moving_boundary_position
+- α → thermal_diffusivity
+- ε → truncation_error
+
+This example demonstrates complete preservation of original notation while enabling cross-domain mapping and implementation integration.
+
+### Symbol Registry Creation
+
+After extracting all symbols, create a comprehensive Symbol Registry using the template at:
+`/projects/git/knowledge-extraction/2-templates/SymbolRegistryTemplate.md`
+
+The registry will serve as a centralized reference for all mathematical notation in the paper and should be stored at:
+`/projects/git/extracted-content-markdown/papers/[AuthorYear]_[ShortTitle]_symbols.md`
+
+### Integration with Knowledge Graph
+
+For each significant symbol, create a Cypher file using the template at:
+`/projects/git/knowledge-extraction/cypher/templates/symbol-node.cypher`
+
+Store these files at:
+`/projects/git/knowledge-extraction/cypher/symbols/[SymbolName]_[PaperContext].cypher`
+
+Run validation queries to ensure proper integration with the knowledge graph.
+
+For complete details on symbol extraction workflow, examples, and validation, see:
+- Symbol Extraction Workflow: `/projects/git/knowledge-extraction/documentation/workflow-guides/symbol-extraction-workflow.md`
+- Symbol Registry Example: `/projects/git/knowledge-extraction/3-examples/symbol-registry-example.md`
+- Symbol Entity Validation: `/projects/git/knowledge-extraction/database-setup/validate-symbol-entities.cypher`
 
 ## Analysis Focus Areas
 

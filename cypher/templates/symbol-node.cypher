@@ -1,6 +1,8 @@
 // Symbol Node Template
 // Use this template to create symbol nodes in the knowledge graph
 // Replace all placeholders with appropriate values
+//
+// Special focus: Optimized for orthogonal collocation methods and KitchenSink solver notation
 
 // Basic Symbol Node Creation
 CREATE (sym:Symbol {
@@ -14,7 +16,9 @@ CREATE (sym:Symbol {
   dimensionality: "[DIMENSIONALITY]",  // E.g., "Scalar", "Vector", "Tensor", "Matrix"
   units: "[PHYSICAL_UNITS]",  // E.g., "m²/s", "kg/m³", "Dimensionless"
   constraints: "[VALUE_CONSTRAINTS]",  // E.g., "Positive real number", "Integer in [1,N]"
-  paperSources: ["[PAPER_REF]"]  // References to papers using this symbol
+  paperSources: ["[PAPER_REF]"],  // References to papers using this symbol
+  mathematicalDomain: "[MATH_DOMAIN]",  // E.g., "Orthogonal Collocation", "Spectral Methods"
+  computationalRole: "[COMPUTATIONAL_ROLE]"  // E.g., "Discretization parameter", "Convergence indicator"
 })
 
 // Connect Symbol to Paper
@@ -54,11 +58,40 @@ CREATE (sym)-[:CONFLICTS_WITH {
   resolutionNotes: "[RESOLUTION_JUSTIFICATION]"  // E.g., "Based on domain convention standards"
 }]->(conflictSym)
 
+// -------------------------------------------------------------------------
+// KITCHENSINK-SPECIFIC SYMBOL PROPERTIES
+// -------------------------------------------------------------------------
+
+// For orthogonal collocation symbols, add these properties
+MATCH (sym:Symbol {name: "[SYMBOL_NAME]", context: "Orthogonal collocation"})
+SET sym.basisFunctionType = "[BASIS_TYPE]"  // E.g., "Legendre", "Chebyshev", "Laguerre"
+SET sym.collocationPointType = "[POINT_TYPE]"  // E.g., "Roots", "Extrema", "Gauss-Lobatto"
+SET sym.convergenceProperty = "[CONVERGENCE_TYPE]"  // E.g., "Spectral", "Exponential", "Algebraic"
+SET sym.implementationNote = "[IMPLEMENTATION_NOTE]"  // Notes specific to KitchenSink implementation
+
+// For moving boundary symbols, add these properties
+MATCH (sym:Symbol {name: "[SYMBOL_NAME]", context: "Moving boundary"})
+SET sym.boundaryType = "[BOUNDARY_TYPE]"  // E.g., "Free", "Stefan", "Phase change"
+SET sym.coordinateSystem = "[COORDINATE_SYSTEM]"  // E.g., "Cartesian", "Cylindrical", "Spherical"
+SET sym.transformationType = "[TRANSFORMATION]"  // E.g., "Fixed domain", "ALE", "Level set"
+
+// For conservation properties, add these properties
+MATCH (sym:Symbol {name: "[SYMBOL_NAME]", context: "Conservation property"})
+SET sym.conservedQuantity = "[QUANTITY]"  // E.g., "Mass", "Energy", "Momentum"
+SET sym.conservationFormulation = "[FORMULATION]"  // E.g., "Integral", "Differential", "Weak"
+SET sym.discreteConservation = "[DISCRETE_CONSERVATION]"  // E.g., "Exact", "Approximate", "None"
+
+// For error analysis symbols, add these properties
+MATCH (sym:Symbol {name: "[SYMBOL_NAME]", context: "Error analysis"})
+SET sym.errorNorm = "[ERROR_NORM]"  // E.g., "L2", "L∞", "H1"
+SET sym.convergenceRate = "[RATE]"  // E.g., "O(h^p)", "O(e^-αN)"
+SET sym.errorType = "[ERROR_TYPE]"  // E.g., "Truncation", "Aliasing", "Roundoff"
+
 // ------------------------------
 // EXAMPLE USAGE
 // ------------------------------
 
-// Example 1: Creating a basic symbol entity for decay rate parameter
+// Example 1: Creating a basic symbol entity for decay rate parameter in orthogonal collocation
 /*
 CREATE (sigma:Symbol {
   name: "σ",
@@ -67,7 +100,9 @@ CREATE (sigma:Symbol {
   meaning: "Decay rate parameter",
   dimensionality: "Scalar",
   constraints: "Positive real number",
-  paperSources: ["Smith2022"]
+  paperSources: ["Smith2022"],
+  mathematicalDomain: "Orthogonal Collocation",
+  computationalRole: "Convergence indicator"
 })
 
 MATCH (paper:Paper {id: "Smith2022"})

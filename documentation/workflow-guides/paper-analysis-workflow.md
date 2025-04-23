@@ -59,6 +59,48 @@ This guide provides a step-by-step process for analyzing academic papers and ext
    - Index conventions
    ```
 
+   Perform the extraction systematically:
+   ```
+   1. Scan the entire paper starting with abstract and introduction
+   2. Pay special attention to definition sections, equation blocks, and nomenclature lists
+   3. Capture each unique symbol along with its first appearance location
+   4. Document the precise contextual meaning for each symbol
+   5. Group symbols by their mathematical or application context
+   ```
+
+   > **Symbol Extraction Process in Detail**
+   > 
+   > The symbol extraction process follows the symbol-concept separation principle:
+   > 
+   > **Phase 1: Initial Symbol Identification**
+   > - Read through the entire paper methodically, section by section
+   > - Document each new mathematical symbol at its first occurrence
+   > - Note the exact visual form as it appears in the paper
+   > - Record the section, page, and equation number for each first appearance
+   > - Capture the contextual definition provided by the authors
+   > 
+   > **Phase 2: Symbol Property Documentation**
+   > - For each identified symbol, compile a comprehensive property set:
+   >   - **Original Notation**: Exact form as it appears (e.g., α, ∇Φ, C_p)
+   >   - **LaTeX Representation**: Precise LaTeX code (e.g., `\alpha`, `\nabla\Phi`, `C_p`)
+   >   - **Context**: Mathematical or application domain where the symbol is used
+   >   - **Meaning**: Precise definition using the paper's own terminology
+   >   - **Role**: Function of the symbol (variable, parameter, operator, etc.)
+   >   - **Properties**: Dimensionality, units, constraints, etc.
+   > 
+   > **Phase 3: Concept Identification**
+   > - For each symbol, identify the underlying mathematical concept it represents
+   > - Note whether the concept appears in other papers under different notation
+   > - Document the relationship between the symbol and the concept
+   > 
+   > **Phase 4: Context Grouping**
+   > - Group symbols by their context within the paper:
+   >   - Core mathematical formulation
+   >   - Numerical discretization
+   >   - Error analysis
+   >   - Implementation considerations
+   >   - Application domains
+
 2. **Document Symbol Definitions**:
    ```
    For each identified symbol, please extract:
@@ -69,17 +111,64 @@ This guide provides a step-by-step process for analyzing academic papers and ext
    - Any alternative notations used
    ```
 
+   Document comprehensive properties for each symbol type:
+   ```
+   For variables and parameters:
+   - Document range of values or constraints (e.g., "positive real number")
+   - Note whether the symbol represents a known or unknown quantity
+   - Specify whether the value is constant or varies within the problem domain
+   - For KitchenSink: Note computational role (e.g., "Discretization parameter")
+
+   For operators and functions:
+   - Document precise input and output spaces
+   - Note any special properties (linearity, continuity, etc.)
+   - Record explicit definition or formula provided in the paper
+   - For KitchenSink: Document implementation approach for operator discretization
+
+   For indices and subscripts:
+   - Document range and meaning of each index
+   - Note any special indexing conventions
+   - Record zero-based vs. one-based indexing choices
+   - For KitchenSink: Map to Julia indexing conventions (one-based)
+
+   For sets and spaces:
+   - Document elements contained in the set
+   - Note any topological or algebraic properties
+   - Record notation for special subsets
+   - For KitchenSink: Map to concrete data structures in implementation
+   ```
+
 3. **Create Symbol Registry**:
    ```
-   Please create a symbol registry document and save to:
+   Please create a symbol registry document using the Symbol Registry Template and save to:
    /projects/git/extracted-content-markdown/papers/[AuthorYear]_[ShortTitle]_symbols.md
    ```
+   
+   Follow these steps to create a comprehensive Symbol Registry:
+   
+   - Use the template at `/projects/git/knowledge-extraction/2-templates/SymbolRegistryTemplate.md`
+   - Complete all required sections for the paper's symbols
+   - Organize symbols by category (variables, operators, indices, etc.)
+   - Include KitchenSink-specific sections for relevant symbols
+   - Document any domain-specific interpretations
+   - Create tables for cross-domain mappings
+   - Note any symbol conflicts with resolution strategies
 
 4. **Generate Symbol Cypher Files**:
    ```
    Please create Cypher files for each significant symbol using the symbol-node.cypher template and save to:
    /projects/git/knowledge-extraction/cypher/symbols/[SymbolName]_[PaperContext].cypher
    ```
+   
+   For each significant symbol:
+   
+   - Use the template at `/projects/git/knowledge-extraction/cypher/templates/symbol-node.cypher`
+   - Create the basic Symbol node with all properties
+   - Establish APPEARS_IN relationships to papers
+   - Create REPRESENTS relationships to concepts
+   - Add HAS_INTERPRETATION_IN relationships for domain interpretations
+   - Document any CONFLICTS_WITH or SYNONYM_OF relationships
+   - Add KitchenSink-specific properties for specialized symbol types
 
 5. **Check for Symbol Conflicts**:
    ```
@@ -89,6 +178,15 @@ This guide provides a step-by-step process for analyzing academic papers and ext
    - The different meanings assigned to the same symbol
    - A proposed resolution strategy
    ```
+   
+   Conflict types to identify:
+   
+   - **Same-paper conflicts**: Same symbol used with different meanings within one paper
+   - **Cross-paper conflicts**: Symbol conflicts with previously extracted symbols
+   - **Convention conflicts**: Symbol deviates from standard conventions in the field
+   - **Implementation conflicts**: Symbol clashes with programming language keywords or reserved names
+   
+   For each conflict, create proper documentation in both the Symbol Registry and Cypher files.
 
 6. **Select Specific Focus**:
    ```
@@ -175,16 +273,38 @@ This guide provides a step-by-step process for analyzing academic papers and ext
 
 If you identified symbol conflicts in step 3.5, follow these steps to resolve them:
 
-1. **Document Conflicts Explicitly**:
+1. **Identify Conflict Types**:
+   ```
+   Please categorize each symbol conflict by type:
+   - Same-paper conflicts: Same symbol has different meanings within one paper
+   - Cross-paper conflicts: Symbol conflicts with previously extracted symbols
+   - Convention conflicts: Symbol deviates from standard conventions in the field
+   - Implementation conflicts: Symbol clashes with programming language keywords
+   ```
+
+2. **Document Conflicts Explicitly**:
    ```
    Please create a conflict documentation for each symbol conflict:
    - Original symbol (in LaTeX)
    - Paper contexts where it appears
    - Different meanings in different contexts
+   - Where each meaning is used in the paper
+   - Author comments about notation choices (if any)
+   - Potential for confusion across domains
    - Recommended canonical representation for cross-references
    ```
 
-2. **Create Conflict Resolution Relationships**:
+3. **Apply Resolution Strategies**:
+   ```
+   Please apply the appropriate resolution strategy for each conflict:
+   - Context disambiguation: Use context to determine intended meaning
+   - Explicit qualification: Add qualifiers when referencing (e.g., "α_thermal" vs "α_spectral")
+   - Domain boundary: Keep meanings separate based on domain boundaries
+   - Canonical reference: Designate preferred form for cross-domain references
+   - Implementation mapping: Create explicit mapping to implementation variables
+   ```
+
+4. **Create Conflict Resolution Relationships**:
    ```
    Please create Cypher relationships connecting the conflicting symbols:
    
@@ -197,10 +317,18 @@ If you identified symbol conflicts in step 3.5, follow these steps to resolve th
    }]->(sym2)
    ```
 
-3. **Update Symbol Registry**:
+5. **Update Symbol Registry**:
    ```
    Please update the symbol registry with conflict information and save to:
    /projects/git/extracted-content-markdown/papers/[AuthorYear]_[ShortTitle]_symbols_with_conflicts.md
+   ```
+
+6. **Document Resolution Examples**:
+   ```
+   For each resolved conflict, please provide:
+   - Clear examples of proper cross-referencing
+   - Guidelines for using the symbols in different contexts
+   - Mappings to implementation variables where applicable
    ```
 
 ### 6. Documentation Generation
@@ -251,6 +379,87 @@ If you identified symbol conflicts in step 3.5, follow these steps to resolve th
    ```
    Please create a synthesis document combining knowledge from this paper and [related paper] and save to:
    /projects/git/extracted-content-markdown/synthesis/[Topic]_synthesis.md
+   ```
+
+### 7.5 Cross-Domain Symbol Mapping
+
+For mathematical symbols that have specific interpretations in application domains:
+
+1. **Identify Domain-Specific Interpretations**:
+   ```
+   Please identify how the mathematical symbols map to engineering concepts in the application domain:
+   - Which symbols have special meaning in the engineering context
+   - How their interpretation differs from pure mathematical usage
+   - Any standard units or conventions specific to the domain
+   ```
+
+2. **Create Domain Mapping Tables**:
+   ```
+   Please create explicit mapping tables between domains with the following structure:
+   | Symbol | Mathematical Context | Engineering Domain | Domain-Specific Meaning | Units | Standard Usage |
+   |--------|---------------------|-------------------|------------------------|-------|---------------|
+   | [sym]  | [math context]      | [domain]          | [domain meaning]       | [domain units] | [usage notes] |
+   ```
+
+3. **Document KitchenSink Implementation Mappings**:
+   ```
+   Please map mathematical symbols to their Julia implementations:
+   | Symbol | Mathematical Meaning | Julia Implementation | Variable Type | Module | Implementation Notes |
+   |--------|---------------------|---------------------|---------------|--------|---------------------|
+   | [sym]  | [math meaning]      | [julia var]         | [type]        | [module] | [notes] |
+   
+   For each mapping, document:
+   - Symbol type (mathematical type)
+   - Julia type (e.g., Float64, Array{Float64,1})
+   - Module where implemented
+   - Function signature
+   - Type constraints
+   - Default values (if applicable)
+   - Documentation string
+   ```
+
+4. **Document Pasteurization-Specific Mappings**:
+   ```
+   Please map mathematical symbols to pasteurization parameters:
+   | Symbol | Mathematical Meaning | Pasteurization Interpretation | Physical Units | Measurement Method |
+   |--------|---------------------|-------------------------------|---------------|-------------------|
+   | [sym]  | [math meaning]      | [pasteurization meaning]      | [units]       | [measurement] |
+   
+   For each mapping, document:
+   - Physical interpretation in pasteurization
+   - Industry-specific units
+   - Typical range of values in brewing industry
+   - Measurement or calculation method
+   - Process impact
+   - Regulatory considerations (if applicable)
+   ```
+
+5. **Create Domain Interpretation Relationships**:
+   ```
+   Please create Cypher relationships for domain-specific interpretations:
+   
+   MATCH (sym:Symbol {name: "[SYMBOL]", context: "[MATHEMATICAL_CONTEXT]"})
+   MATCH (domain:ApplicationDomain {name: "[DOMAIN_NAME]"})
+   CREATE (sym)-[:HAS_INTERPRETATION_IN {
+     meaning: "[DOMAIN_SPECIFIC_MEANING]",
+     standardUsage: "[STANDARD_USAGE_IN_DOMAIN]",
+     units: "[DOMAIN_SPECIFIC_UNITS]"
+   }]->(domain)
+   ```
+
+6. **Create Cross-Domain Mapping Document**:
+   ```
+   Please create a cross-domain symbol mapping document and save to:
+   /projects/git/extracted-content-markdown/cross-domain/[MathDomain]_to_[EngineeringDomain]_mapping.md
+   ```
+
+7. **Validate Cross-Domain Consistency**:
+   ```
+   Please verify consistency across domain interpretations:
+   - Check for dimensional consistency
+   - Validate unit conversions
+   - Confirm physical meaning aligns with mathematical properties
+   - Verify that the mapping preserves mathematical constraints
    ```
 
 ### 7.5 Cross-Domain Symbol Mapping

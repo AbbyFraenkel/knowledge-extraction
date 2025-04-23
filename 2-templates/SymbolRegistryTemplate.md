@@ -1,96 +1,151 @@
-# Symbol Registry: [Paper Title]
+# Symbol Registry: [PAPER_TITLE]
 
 ## Paper Information
-- **Title**: [Full paper title]
-- **Authors**: [Author list]
-- **Year**: [Publication year]
-- **DOI**: [DOI if available]
-- **Extraction Date**: [Date when symbols were extracted]
+- **Authors**: [AUTHORS]
+- **Year**: [YEAR]
+- **DOI**: [DOI]
+- **Domain**: [PRIMARY_DOMAIN]
+- **Focus**: [PAPER_FOCUS]
 
-## Symbol Definitions
+## Symbol Extraction Date
+- **Date**: [EXTRACTION_DATE]
+- **Extracted By**: [EXTRACTOR]
+- **Extraction Method**: Knowledge Extraction System
 
-| Symbol | LaTeX | Context | Meaning | Units | First Appearance | Notes |
-|--------|-------|---------|---------|-------|------------------|-------|
-| [sym1] | [latex1] | [context1] | [meaning1] | [units1] | [location1] | [notes1] |
-| [sym2] | [latex2] | [context2] | [meaning2] | [units2] | [location2] | [notes2] |
-| [sym3] | [latex3] | [context3] | [meaning3] | [units3] | [location3] | [notes3] |
+## Symbol-Concept Separation Principle
+This registry follows the Symbol-Concept Separation principle, documenting symbols exactly as they appear in the paper while establishing relationships to the underlying mathematical concepts they represent. Symbols (notation) are kept strictly separate from concepts (meaning) to enable clear cross-domain mapping and consistent implementation.
 
-## Context-Specific Symbol Sets
+## Symbol Registry
 
-### [Context A - e.g., "Spectral Approximation"]
-- **α**: Decay rate parameter (dimensionless)
-- **n**: Polynomial degree (positive integer)
-- **ε**: Error tolerance (dimensionless)
+### Core Mathematical Symbols
 
-### [Context B - e.g., "Error Analysis"]
-- **C**: Error constant (dimensionless)
-- **h**: Mesh size parameter (length)
-- **p**: Order of accuracy (positive integer)
+| Symbol | LaTeX | Context | Meaning | First Appearance | Type | Properties |
+|--------|-------|---------|---------|-----------------|------|------------|
+| [SYMBOL_1] | `[LATEX_1]` | [CONTEXT_1] | [MEANING_1] | [LOCATION_1] | [TYPE_1] | [PROPERTIES_1] |
+| [SYMBOL_2] | `[LATEX_2]` | [CONTEXT_2] | [MEANING_2] | [LOCATION_2] | [TYPE_2] | [PROPERTIES_2] |
+| [SYMBOL_3] | `[LATEX_3]` | [CONTEXT_3] | [MEANING_3] | [LOCATION_3] | [TYPE_3] | [PROPERTIES_3] |
 
-## Symbol Conflicts and Resolutions
+### Variables and Parameters
 
-| Symbol | Conflict Type | Contexts | Resolution Strategy | Canonical Choice |
-|--------|--------------|----------|---------------------|------------------|
-| [sym] | [type] | [conflicting contexts] | [strategy] | [canonical form] |
+| Symbol | LaTeX | Context | Meaning | Type | Dimensionality | Units | Constraints |
+|--------|-------|---------|---------|------|---------------|-------|-------------|
+| [VARIABLE_1] | `[LATEX_V1]` | [CONTEXT_V1] | [MEANING_V1] | Variable | [DIM_V1] | [UNITS_V1] | [CONSTRAINTS_V1] |
+| [PARAMETER_1] | `[LATEX_P1]` | [CONTEXT_P1] | [MEANING_P1] | Parameter | [DIM_P1] | [UNITS_P1] | [CONSTRAINTS_P1] |
 
-## Cross-Domain Mappings
+### Operators and Functions
 
-| Symbol | Math Context | Engineering Domain | Domain-Specific Meaning | Units | Standard Usage |
-|--------|-------------|-------------------|------------------------|-------|---------------|
-| [sym] | [math context] | [domain] | [domain meaning] | [domain units] | [usage notes] |
+| Symbol | LaTeX | Context | Definition | Input Space | Output Space | Properties |
+|--------|-------|---------|------------|------------|--------------|------------|
+| [OPERATOR_1] | `[LATEX_O1]` | [CONTEXT_O1] | [DEFINITION_O1] | [INPUT_O1] | [OUTPUT_O1] | [PROPERTIES_O1] |
+| [FUNCTION_1] | `[LATEX_F1]` | [CONTEXT_F1] | [DEFINITION_F1] | [INPUT_F1] | [OUTPUT_F1] | [PROPERTIES_F1] |
+
+### Indices and Subscripts
+
+| Symbol | LaTeX | Context | Range | Meaning | Convention |
+|--------|-------|---------|-------|---------|------------|
+| [INDEX_1] | `[LATEX_I1]` | [CONTEXT_I1] | [RANGE_I1] | [MEANING_I1] | [CONVENTION_I1] |
+| [SUBSCRIPT_1] | `[LATEX_S1]` | [CONTEXT_S1] | [RANGE_S1] | [MEANING_S1] | [CONVENTION_S1] |
+
+### Sets and Spaces
+
+| Symbol | LaTeX | Context | Elements | Properties | Subsets |
+|--------|-------|---------|----------|------------|---------|
+| [SET_1] | `[LATEX_SET1]` | [CONTEXT_SET1] | [ELEMENTS_SET1] | [PROPERTIES_SET1] | [SUBSETS_SET1] |
+| [SPACE_1] | `[LATEX_SPACE1]` | [CONTEXT_SPACE1] | [ELEMENTS_SPACE1] | [PROPERTIES_SPACE1] | [SUBSETS_SPACE1] |
 
 ## Symbol Relationships
 
-### Synonyms
-- [sym1] ↔ [sym2] (equivalent in context [context])
-- [sym3] ↔ [sym4] (equivalent in context [context])
+### Related Symbols
 
-### Hierarchical Relationships
-- [sym1] → [sym2] (specialization in context [context])
-- [sym3] → [sym4] (variant of in context [context])
+| Symbol | Related Symbol | Relationship | Context |
+|--------|----------------|--------------|---------|
+| [SYMBOL_A] | [SYMBOL_B] | [RELATIONSHIP_AB] | [CONTEXT_AB] |
+| [SYMBOL_C] | [SYMBOL_D] | [RELATIONSHIP_CD] | [CONTEXT_CD] |
 
-## Notes on Notation
-[Any general comments about the notation system used in the paper, unusual conventions, etc.]
+### Symbol Conflicts
 
-## Cypher Files Generated
-- `/projects/git/knowledge-extraction/cypher/symbols/[SymbolName1]_[Context].cypher`
-- `/projects/git/knowledge-extraction/cypher/symbols/[SymbolName2]_[Context].cypher`
+| Symbol | Conflict Context | Different Meanings | Resolution Strategy |
+|--------|------------------|-------------------|---------------------|
+| [CONFLICT_SYMBOL_1] | [CONFLICT_CONTEXT_1] | [DIFFERENT_MEANINGS_1] | [RESOLUTION_1] |
+| [CONFLICT_SYMBOL_2] | [CONFLICT_CONTEXT_2] | [DIFFERENT_MEANINGS_2] | [RESOLUTION_2] |
+
+## Concept Mappings
+
+### Represented Concepts
+
+| Symbol | Concept | Relationship Context |
+|--------|---------|---------------------|
+| [SYMBOL_X] | [CONCEPT_X] | [CONTEXT_X] |
+| [SYMBOL_Y] | [CONCEPT_Y] | [CONTEXT_Y] |
+
+### Domain-Specific Interpretations
+
+| Symbol | Engineering Domain | Domain-Specific Meaning | Units | Standard Usage |
+|--------|-------------------|------------------------|-------|---------------|
+| [SYMBOL_D1] | [DOMAIN_D1] | [MEANING_D1] | [UNITS_D1] | [USAGE_D1] |
+| [SYMBOL_D2] | [DOMAIN_D2] | [MEANING_D2] | [UNITS_D2] | [USAGE_D2] |
+
+## KitchenSink Implementation Mappings
+
+| Symbol | Mathematical Meaning | Julia Implementation | Variable Type | Module | Implementation Notes |
+|--------|---------------------|---------------------|---------------|--------|---------------------|
+| [SYMBOL_K1] | [MATH_MEANING_K1] | [JULIA_VAR_K1] | [TYPE_K1] | [MODULE_K1] | [NOTES_K1] |
+| [SYMBOL_K2] | [MATH_MEANING_K2] | [JULIA_VAR_K2] | [TYPE_K2] | [MODULE_K2] | [NOTES_K2] |
+
+## Cypher File References
+
+| Symbol | Cypher File Path |
+|--------|-----------------|
+| [SYMBOL_C1] | `/projects/git/knowledge-extraction/cypher/symbols/[DOMAIN]/[FILENAME_C1].cypher` |
+| [SYMBOL_C2] | `/projects/git/knowledge-extraction/cypher/symbols/[DOMAIN]/[FILENAME_C2].cypher` |
+
+## Visual Context Examples
+
+### Symbol in Equation Context
+
+```latex
+[EQUATION_EXAMPLE_1]
+```
+
+Where [SYMBOL_E1] represents [MEANING_E1] in the context of [CONTEXT_E1].
+
+### Symbol in Algorithm Context
+
+```
+Algorithm: [ALGORITHM_NAME]
+...
+Step N: ... [SYMBOL_A1] ... [MEANING_A1_IN_ALGORITHM] ...
+...
+```
+
+## Notes and Observations
+
+- [NOTE_1]
+- [NOTE_2]
+- [NOTE_3]
 
 ---
 
-## Usage Instructions
+## Usage Guide
 
-### How to Fill Out This Template
+This Symbol Registry follows these principles:
 
-1. **Replace all placeholders** in brackets with the appropriate content
-2. **Complete the Symbol Definitions table** with all symbols from the paper
-3. **Group symbols by context** in the Context-Specific Symbol Sets section
-4. **Document any conflicts** in the Symbol Conflicts and Resolutions table
-5. **Create cross-domain mappings** for symbols used in application domains
-6. **Identify relationships** between symbols (synonyms, hierarchies)
-7. **Add general notes** about the paper's notation system
-8. **List all Cypher files** created for these symbols
+1. **Complete Preservation**: All symbols are documented exactly as they appear in the paper
+2. **Contextual Documentation**: Each symbol's meaning is recorded with its specific context
+3. **Separation from Concepts**: Symbols (notation) are kept separate from concepts (meaning)
+4. **Relationship Documentation**: Connections between symbols and concepts are explicitly documented
+5. **Conflict Resolution**: Symbol conflicts are identified and resolution strategies provided
+6. **Implementation Mapping**: Clear pathways from mathematical notation to implementation variables
 
-### Symbol Properties to Document
+To add new symbols to this registry:
+1. Document the symbol in the appropriate section
+2. Create a Cypher file using the symbol-node.cypher template
+3. Establish relationships to concepts and other symbols
+4. Document any conflicts or domain-specific interpretations
+5. Update implementation mappings if applicable
 
-- **Symbol**: The actual symbol character (e.g., α, σ, ∇)
-- **LaTeX**: The LaTeX code for the symbol (e.g., `\alpha`, `\sigma`, `\nabla`)
-- **Context**: The specific context where the symbol is used (e.g., "Heat equation", "Error analysis")
-- **Meaning**: The precise meaning of the symbol in this context
-- **Units**: Any physical units or dimensions (if applicable)
-- **First Appearance**: Where the symbol first appears in the paper (section, equation, page)
-- **Notes**: Any additional information about usage, constraints, etc.
-
-### Conflict Types
-
-- **Overloading**: Same symbol used with different meanings within the paper
-- **Notation Clash**: Symbol contradicts previously established notation
-- **Ambiguous Usage**: Symbol used without clear definition or in ambiguous ways
-- **Standard Conflict**: Symbol deviates from standard convention in the field
-
-### Resolution Strategies
-
-- **Context-Dependent**: Interpret based on specific context
-- **Explicit Disambiguation**: Use subscripts or modifiers in cross-references
-- **Domain Separation**: Maintain different meanings in different domains
-- **Canonical Preference**: Designate one meaning as canonical for cross-domain reference
+To update existing symbols:
+1. Maintain the original notation
+2. Add new contexts or meanings as separate entries
+3. Document relationship to existing symbol entries
+4. Update conflict resolution strategies if needed

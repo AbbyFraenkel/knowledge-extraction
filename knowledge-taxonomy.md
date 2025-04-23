@@ -26,10 +26,22 @@ knowledge_graph/
 │   ├── discretization_methods/
 │   │   ├── finite_difference_methods
 │   │   ├── finite_element_methods
-│   │   ├── spectral_methods
+│   │   ├── spectral_methods/
+│   │   │   ├── global_spectral_methods
+│   │   │   ├── spectral_element_methods
+│   │   │   └── fourier_spectral_methods
 │   │   ├── collocation_methods/
-│   │   │   ├── orthogonal_collocation
-│   │   │   └── multi_level_methods
+│   │   │   ├── orthogonal_collocation/
+│   │   │   │   ├── gauss_collocation
+│   │   │   │   ├── gauss_lobatto_collocation
+│   │   │   │   └── gauss_radau_collocation
+│   │   │   ├── multi_level_methods/
+│   │   │   │   ├── hierarchical_basis_functions
+│   │   │   │   ├── refinement_by_superposition
+│   │   │   │   └── adaptive_multi_level_methods
+│   │   │   └── fictitious_domain_methods/
+│   │   │       ├── embedded_boundary_methods
+│   │   │       └── immersed_boundary_methods
 │   │   └── meshless_methods
 │   ├── optimization_algorithms/
 │   │   ├── unconstrained_optimization
@@ -58,6 +70,61 @@ knowledge_graph/
 │       ├── convergence_analysis
 │       ├── error_estimation
 │       └── uncertainty_quantification
+├── scientific_computing_implementation/
+│   ├── implementation_methodologies/
+│   │   ├── design_patterns/
+│   │   │   ├── factory_pattern
+│   │   │   ├── strategy_pattern
+│   │   │   ├── composite_pattern
+│   │   │   └── visitor_pattern
+│   │   ├── type_systems/
+│   │   │   ├── abstract_type_hierarchies
+│   │   │   ├── parametric_types
+│   │   │   ├── multiple_dispatch
+│   │   │   └── type_stability
+│   │   ├── code_organization/
+│   │   │   ├── modular_design
+│   │   │   ├── component_interfaces
+│   │   │   └── algorithm_encapsulation
+│   │   └── performance_optimization/
+│   │       ├── memory_management
+│   │       ├── cache_optimization
+│   │       ├── allocations_reduction
+│   │       └── compiler_directives
+│   ├── language_specific_implementations/
+│   │   ├── julia_implementation/
+│   │   │   ├── sciml_style
+│   │   │   ├── metaprogramming
+│   │   │   ├── generic_programming
+│   │   │   └── package_development
+│   │   ├── python_implementation/
+│   │   │   ├── numpy_scipy_ecosystem
+│   │   │   └── jit_compilation
+│   │   └── cpp_implementation/
+│   │       ├── template_metaprogramming
+│   │       └── expression_templates
+│   ├── numerical_libraries/
+│   │   ├── linear_algebra_libraries
+│   │   ├── ode_solvers
+│   │   ├── pde_frameworks
+│   │   └── optimization_packages
+│   └── algorithm_implementation/
+│       ├── data_structures/
+│       │   ├── sparse_matrices
+│       │   ├── adaptive_meshes
+│       │   └── hierarchical_structures
+│       ├── algorithm_translation/
+│       │   ├── mathematical_to_computational
+│       │   ├── abstract_to_concrete
+│       │   └── symbolic_to_numeric
+│       ├── testing_methodologies/
+│       │   ├── convergence_testing
+│       │   ├── method_of_manufactured_solutions
+│       │   └── regression_testing
+│       └── documentation_methodologies/
+│           ├── literate_programming
+│           ├── mathematical_documentation
+│           └── reproducible_examples
 ├── computer_vision/
 │   ├── image_processing/
 │   │   ├── filtering_techniques
@@ -112,6 +179,29 @@ knowledge_graph/
 │   │   │   ├── lift_drag_optimization
 │   │   │   └── flow_control
 │   │   └── multiphase_flows
+│   ├── heat_transfer/
+│   │   ├── conduction/
+│   │   │   ├── steady_state_conduction
+│   │   │   ├── transient_conduction
+│   │   │   └── anisotropic_conduction
+│   │   ├── convection/
+│   │   │   ├── natural_convection
+│   │   │   ├── forced_convection
+│   │   │   └── mixed_convection
+│   │   ├── radiation/
+│   │   │   ├── surface_radiation
+│   │   │   └── participating_media
+│   │   ├── phase_change/
+│   │   │   ├── melting_solidification
+│   │   │   ├── evaporation_condensation
+│   │   │   └── moving_boundary_problems
+│   │   └── thermal_processing/
+│   │       ├── pasteurization/
+│   │       │   ├── tunnel_pasteurization
+│   │       │   ├── container_modeling
+│   │       │   └── process_optimization
+│   │       ├── sterilization
+│   │       └── heat_treatment
 │   ├── parameter_estimation/
 │   │   ├── pde_parameter_identification
 │   │   ├── vision_based_parameter_estimation/
@@ -146,10 +236,26 @@ knowledge_graph/
     │   ├── pde_solver_to_mpc
     │   ├── optimization_to_control_formulation
     │   └── uncertainty_to_robust_control
-    └── vision_to_applications/
-        ├── vision_to_parameter_estimation
-        ├── vision_to_validation
-        └── vision_to_real_time_control
+    ├── vision_to_applications/
+    │   ├── vision_to_parameter_estimation
+    │   ├── vision_to_validation
+    │   └── vision_to_real_time_control
+    ├── numerics_to_implementation/
+    │   ├── mathematical_formulation_to_code
+    │   ├── algorithm_to_type_system
+    │   ├── mathematical_properties_to_tests
+    │   └── notation_to_naming_conventions
+    ├── kitchensink_specific_bridges/
+    │   ├── spectral_methods_to_multi_level_adaptivity
+    │   ├── orthogonal_collocation_to_fictitious_domain
+    │   ├── multi_level_approach_to_type_system
+    │   ├── mathematical_theory_to_implementation
+    │   └── numerical_methods_to_applications
+    └── heat_transfer_bridges/
+        ├── numerical_methods_to_thermal_modeling
+        ├── pde_solvers_to_pasteurization
+        ├── parameter_estimation_to_thermal_properties
+        └── optimization_to_process_control
 ```
 
 ## Knowledge Tiers for Efficient Context Window Usage
@@ -182,37 +288,41 @@ Cross-domain bridges connect concepts across different domains while minimizing 
 
 ```json
 {
-  "bridge_id": "optical_flow_to_cfd_bridge",
-  "connects": ["computer_vision/feature_extraction/optical_flow", "applications/fluid_dynamics/cfd_fundamentals"],
+  "bridge_id": "orthogonal_collocation_to_fictitious_domain_bridge",
+  "connects": ["numerics/discretization_methods/collocation_methods/orthogonal_collocation", "numerics/discretization_methods/collocation_methods/fictitious_domain_methods"],
   "knowledge_flow": [
     {
-      "from": "optical_flow_velocity_field",
-      "to": "cfd_boundary_conditions",
-      "transformation": "Physics-informed filtering and coordinate transformation"
+      "from": "orthogonal_polynomial_basis",
+      "to": "embedded_boundary_representation",
+      "transformation": "Extension of basis functions to handle non-conforming boundaries"
     }
   ],
   "reference_implementations": [
-    "3-examples/vision-based-parameter-estimation.md"
+    "kitchensink/ocfc_implementation.jl"
   ]
 }
 ```
 
 ## Entity Types and Relation Types
 
-### Core Entity Types
+### Enhanced Entity Types
 - `MathematicalConcept`: Fundamental mathematical ideas
 - `MathematicalEquation`: Formal mathematical expressions
 - `Algorithm`: Step-by-step computational procedures
 - `NumericalMethod`: Specific computational approaches
 - `Implementation`: Code realizations
+- `DesignPattern`: Software design patterns
+- `TypeSystem`: Type hierarchy and organization
 - `VisualTechnique`: Computer vision methods
 - `PhysicalApplication`: Domain-specific applications
 - `CrossDomainBridge`: Connections between domains
+- `Symbol`: Mathematical notation
 
-### Relation Types
+### Enhanced Relation Types
 - Mathematical: `derives_from`, `is_equivalent_to`, `approximates`
 - Hierarchical: `is_a`, `type_of`, `subclass_of`, `instance_of`
 - Implementation: `implements`, `realizes`, `extends`, `optimizes`
+- Symbol-Related: `represents`, `appears_in`, `conflicts_with`, `has_interpretation_in`
 - Cross-Domain: `transforms_to`, `maps_between`, `translates_from`
 - Comparative: `similar_to`, `different_from`, `improves_upon`
 
@@ -221,42 +331,73 @@ Cross-domain bridges connect concepts across different domains while minimizing 
 ### Creating Entities with Tiered Knowledge
 ```cypher
 // Create a mathematical concept with tiered knowledge
-CREATE (piof:CrossDomainBridge {
-  name: "Physics-Informed Optical Flow",
-  tier_L1: "Computer vision technique that incorporates physical constraints (mass conservation, momentum) into optical flow estimation to improve fluid flow measurement accuracy and physical consistency.",
-  tier_L2_file: "physics_informed_optical_flow_L2.md",
-  tier_L3_file: "physics_informed_optical_flow_L3.md"
+CREATE (ocfc:NumericalMethod {
+  name: "OrthogonalCollocationOnFiniteCells",
+  tier_L1: "A computational method combining orthogonal collocation with fictitious domain approaches to handle complex geometries while maintaining spectral accuracy.",
+  tier_L2_file: "numerics/discretization_methods/ocfc_L2.md",
+  tier_L3_file: "numerics/discretization_methods/ocfc_L3.md"
 })
 ```
 
-### Establishing Cross-Domain Relationships
+### Establishing Implementation Relationships
 ```cypher
-// Create relationships between computer vision and fluid dynamics
-MATCH (piof:Entity {name: "Physics-Informed Optical Flow"})
-MATCH (flow:Entity {name: "Free Surface Flow Estimation"})
-CREATE (piof)-[:enables_measurement_of]->(flow);
+// Create relationships between mathematical method and implementation
+MATCH (method:NumericalMethod {name: "MultiLevelOrthogonalCollocation"})
+MATCH (impl:Implementation {name: "KitchenSinkMultiLevelCollocation"})
+CREATE (impl)-[:implements {
+  language: "Julia",
+  style: "SciML",
+  fidelity: "Complete"
+}]->(method);
 
-MATCH (ofce:Entity {name: "Optical Flow Constraint Equation"})
-MATCH (nsmc:Entity {name: "Navier-Stokes Mass Conservation"})
-CREATE (ofce)-[:mathematically_analogous_to]->(nsmc);
+MATCH (method:NumericalMethod {name: "MultiLevelOrthogonalCollocation"})
+MATCH (designPattern:DesignPattern {name: "CompositePattern"})
+CREATE (method)-[:uses_pattern {
+  application: "Hierarchical basis representation",
+  benefits: "Recursive composition of refinement levels"
+}]->(designPattern);
+```
+
+### Symbol-Concept Independence
+```cypher
+// Create a symbol separate from concept
+CREATE (sym:Symbol {
+  name: "α",
+  latex: "\\alpha",
+  context: "Numerical methods",
+  paperSource: "Smith2022"
+})
+
+// Create concept separate from symbol
+CREATE (concept:MathematicalConcept {
+  name: "ThermalDiffusivity",
+  description: "Property determining heat diffusion rate through material"
+})
+
+// Connect symbol to concept via relationship
+CREATE (sym)-[:REPRESENTS {
+  context: "Heat equation"
+}]->(concept)
 ```
 
 ### Query Optimization
 ```cypher
-// Start with core concept (L1)
-MATCH (concept:Entity {name: "Physics-Informed Optical Flow"})
-RETURN concept;
+// Find implementations of a mathematical concept
+MATCH (concept:MathematicalConcept {name: "OrthogonalCollocation"})
+MATCH (method:NumericalMethod)-[:is_a]->(concept)
+MATCH (implementation:Implementation)-[:implements]->(method)
+RETURN implementation.name, implementation.language
 
-// Load functional details (L2) when needed
-MATCH (concept:Entity {name: "Physics-Informed Optical Flow"})
-WHERE concept.tier_L2_file IS NOT NULL
-RETURN concept.tier_L2_file AS detailedContentFile;
+// Find all symbols representing the same concept
+MATCH (concept:MathematicalConcept {name: "ThermalDiffusivity"})
+MATCH (symbol:Symbol)-[:REPRESENTS]->(concept)
+RETURN symbol.name, symbol.context, symbol.latex
 ```
 
 ## Implementation Notes
 
-1. **File References**: Use file references for L2 and L3 knowledge to avoid loading large content into context window
+1. **Symbol-Concept Independence**: Always maintain complete separation between symbols (notation) and concepts (meaning)
 2. **Progressive Loading**: Implement tiered loading to start with L1 knowledge and progressively load deeper tiers
-3. **Entity-Relationship Balancing**: Create entities at proper granularity - neither too fine (fragmentation) nor too coarse
-4. **Cross-Domain Bridges**: Explicitly model transformations between domains to facilitate interdisciplinary work
-5. **Knowledge Packs**: Group related entities into "knowledge packs" for common retrieval patterns
+3. **Cross-Domain Bridges**: Explicitly model transformations between domains to facilitate interdisciplinary work
+4. **Implementation-Theory Connection**: Create explicit relationships between mathematical concepts and their implementations
+5. **KitchenSink Focus Areas**: Prioritize orthogonal collocation, multi-level methods, and fictitious domain approaches

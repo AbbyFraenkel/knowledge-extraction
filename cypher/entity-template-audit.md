@@ -6,24 +6,24 @@ This document tracks the status of Cypher templates for all entity types defined
 
 | Entity Type | Schema Definition | Template File | Status | Last Updated |
 |-------------|------------------|--------------|--------|--------------|
-| Paper | ✅ | `/cypher/templates/paper-node.cypher` | Missing | - |
-| MathematicalConcept | ✅ | `/cypher/templates/mathematical-concept-node.cypher` | Missing | - |
+| Paper | ✅ | `/cypher/templates/paper-node.cypher` | ✅ | March 20, 2025 |
+| MathematicalConcept | ✅ | `/cypher/templates/mathematical-concept-node.cypher` | ✅ | March 20, 2025 |
 | Algorithm | ✅ | `/cypher/templates/algorithm-node.cypher` | ✅ | March 19, 2025 |
-| NumericalMethod | ✅ | `/cypher/templates/numerical-method-node.cypher` | Missing | - |
-| ApplicationDomain | ✅ | `/cypher/templates/application-domain-node.cypher` | Missing | - |
+| NumericalMethod | ✅ | `/cypher/templates/numerical-method-node.cypher` | ✅ | March 20, 2025 |
+| ApplicationDomain | ✅ | `/cypher/templates/application-domain-node.cypher` | ✅ | March 20, 2025 |
 | Implementation | ✅ | `/cypher/templates/implementation-node.cypher` | Missing | - |
 | Symbol | ✅ | `/cypher/templates/symbol-node.cypher` | ✅ | March 19, 2025 |
-| Equation | ✅ | `/cypher/templates/equation-node.cypher` | Missing | - |
+| Equation | ✅ | `/cypher/templates/equation-node.cypher` | ✅ | March 20, 2025 |
 | TestCase | ✅ | `/cypher/templates/test-case-node.cypher` | Missing | - |
 
 ## Relationship Types and Template Status
 
 | Relationship Type | Schema Definition | Template File | Status | Last Updated |
 |------------------|------------------|--------------|--------|--------------|
-| BASED_ON | ✅ | `/cypher/templates/based-on-relationship.cypher` | Missing | - |
-| IMPLEMENTS | ✅ | `/cypher/templates/implements-relationship.cypher` | Missing | - |
-| APPLIES_TO | ✅ | `/cypher/templates/applies-to-relationship.cypher` | Missing | - |
-| IMPROVES_UPON | ✅ | `/cypher/templates/improves-upon-relationship.cypher` | Missing | - |
+| BASED_ON | ✅ | `/cypher/templates/relationship-templates/BASED_ON.cypher` | ✅ | March 20, 2025 |
+| IMPLEMENTS | ✅ | `/cypher/templates/relationship-templates/IMPLEMENTS.cypher` | ✅ | March 20, 2025 |
+| APPLIES_TO | ✅ | `/cypher/templates/relationship-templates/APPLIES_TO.cypher` | ✅ | March 20, 2025 |
+| IMPROVES_UPON | ✅ | `/cypher/templates/relationship-templates/IMPROVES_UPON.cypher` | ✅ | March 20, 2025 |
 | DEPENDS_ON | ✅ | `/cypher/templates/depends-on-relationship.cypher` | Missing | - |
 | INTEGRATES_WITH | ✅ | `/cypher/templates/integrates-with-relationship.cypher` | Missing | - |
 | APPEARS_IN | ✅ | `/cypher/templates/symbol-relationship.cypher` | ✅ | March 19, 2025 |
@@ -39,21 +39,21 @@ This document tracks the status of Cypher templates for all entity types defined
 ### Priority 1 (Immediate)
 - ✅ Symbol node template
 - ✅ Symbol relationship template
-- ⬜ Paper node template
-- ⬜ MathematicalConcept node template
-- ⬜ Equation node template
+- ✅ Paper node template
+- ✅ MathematicalConcept node template
+- ✅ Equation node template
 
 ### Priority 2 (High)
 - ⬜ Algorithm node template (needs update)
-- ⬜ NumericalMethod node template
-- ⬜ Based-on relationship template
-- ⬜ Implements relationship template
-- ⬜ Applies-to relationship template
+- ✅ NumericalMethod node template
+- ✅ Based-on relationship template
+- ✅ Implements relationship template
+- ✅ Applies-to relationship template
 
 ### Priority 3 (Medium)
-- ⬜ ApplicationDomain node template
+- ✅ ApplicationDomain node template
 - ⬜ Implementation node template
-- ⬜ Improves-upon relationship template
+- ✅ Improves-upon relationship template
 - ⬜ Depends-on relationship template
 - ⬜ Integrates-with relationship template
 
